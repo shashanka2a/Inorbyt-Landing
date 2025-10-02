@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -30,11 +32,39 @@ export function Navigation() {
         }
       }
     };
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('keydown', handleKeyDown);
+    
+    // Close mobile menu on scroll
+    if (isMobileMenuOpen) {
+      window.addEventListener('scroll', () => setIsMobileMenuOpen(false));
+    }
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMobileMenuOpen]);
 
   const navLinks = ['How It Works', 'Creators', 'Fans', 'Freelancers', 'Resources', 'Whitepaper'];
+
+  const handleMobileMenuClick = (sectionId: string) => {
+    setIsMobileMenuOpen(false);
+    // Small delay to allow menu to close before scrolling
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 300);
+  };
 
   return (
     <>
@@ -98,29 +128,143 @@ export function Navigation() {
             </div>
           </div>
 
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(249, 115, 22, 0.4)' }}
-            whileTap={{ scale: 0.95 }}
-            className="relative px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group"
-            style={{ fontSize: '15px', fontWeight: 600 }}
-          >
-            <span className="relative z-10">Get Early Access</span>
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            {/* Shine effect */}
-            <motion.div
-              className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
-              style={{
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
-              }}
-            />
-          </motion.button>
+          <div className="flex items-center gap-4">
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(249, 115, 22, 0.4)' }}
+              whileTap={{ scale: 0.95 }}
+              className="hidden sm:block relative px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group"
+              style={{ fontSize: '15px', fontWeight: 600 }}
+            >
+              <span className="relative z-10">Get Early Access</span>
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              {/* Shine effect */}
+              <motion.div
+                className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                }}
+              />
+            </motion.button>
+
+            {/* Mobile menu button */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-[#f9f4e1]/10 hover:bg-[#f9f4e1]/20 transition-colors duration-200"
+              aria-label="Toggle mobile menu"
+            >
+              <AnimatePresence mode="wait">
+                {isMobileMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X className="w-5 h-5 text-[#f9f4e1]" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu className="w-5 h-5 text-[#f9f4e1]" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
         </div>
       </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+            />
+            
+            {/* Mobile Menu */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="fixed top-0 right-0 h-full w-80 bg-[#0a0e1a]/95 backdrop-blur-xl border-l border-[#f9f4e1]/10 z-50 md:hidden"
+            >
+              <div className="flex flex-col h-full pt-20 px-6">
+                {/* Mobile Navigation Links */}
+                <div className="flex-1 space-y-6">
+                  {navLinks.map((item, index) => {
+                    const sectionId = item.toLowerCase().replace(/\s+/g, '-');
+                    const isActive = activeSection === sectionId;
+                    
+                    return (
+                      <motion.div
+                        key={item}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <motion.button
+                          onClick={() => handleMobileMenuClick(sectionId)}
+                          whileHover={{ x: 4 }}
+                          whileTap={{ scale: 0.95 }}
+                          className={`w-full text-left py-3 px-4 rounded-lg transition-all duration-300 ${
+                            isActive 
+                              ? 'bg-orange-500/20 text-[#f9f4e1] border-l-2 border-orange-500' 
+                              : 'text-[#f9f4e1]/70 hover:text-[#f9f4e1] hover:bg-[#f9f4e1]/5'
+                          }`}
+                          style={{ fontSize: '18px', fontWeight: isActive ? 600 : 400 }}
+                        >
+                          {item}
+                        </motion.button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+                
+                {/* Mobile CTA Button */}
+                <div className="py-6 border-t border-[#f9f4e1]/10">
+                  <motion.button
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold text-center relative overflow-hidden group"
+                  >
+                    <span className="relative z-10">Get Early Access</span>
+                    <motion.div 
+                      className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }
