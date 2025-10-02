@@ -21,6 +21,16 @@ export const metadata: Metadata = {
   authors: [{ name: "InOrbyt Team" }],
   creator: "InOrbyt.io",
   publisher: "InOrbyt.io",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     title: "InOrbyt.io - Creator Token Economy Platform",
     description: "Launch your own tradeable tokens, reward superfans, and build a thriving creator economy.",
@@ -57,6 +67,7 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

@@ -1,0 +1,26 @@
+{
+  "name": "InOrbyt.io - Creator Token Economy Platform",
+  "short_name": "InOrbyt",
+  "description": "Launch your own tradeable tokens, reward superfans, and build a thriving creator economy",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#005257",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
