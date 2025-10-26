@@ -101,7 +101,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Reward your fans and freelancers.
+            Reward your community.
           </motion.span>
           <br />
           <motion.span
@@ -142,7 +142,7 @@ export function HeroSection() {
           className="font-dm-sans text-[#f9f4e1]/80 mb-12 max-w-3xl mx-auto"
           style={{ fontSize: '22px' }}
         >
-          InOrbyt turns your existing platforms — Patreon, Substack, YouTube, and Discord — into a connected reward ecosystem.
+          InOrbyt turns your existing platforms (Patreon, Substack, YouTube, and Discord) into a connected reward ecosystem.
           Reward loyalty, celebrate milestones, and give ownership back to your community.
         </motion.p>
 

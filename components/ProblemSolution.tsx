@@ -7,7 +7,7 @@ const problemCards = [
   { 
     icon: Layers, 
     title: 'Too Many Platforms', 
-    description: 'Your audience lives across Patreon, YouTube, and Discord — but your rewards don\'t.' 
+    description: 'Your audience lives across Patreon, YouTube, and Discord - but your rewards don\'t.' 
   },
   { 
     icon: Heart, 
@@ -17,7 +17,7 @@ const problemCards = [
   { 
     icon: CreditCard, 
     title: 'Paywalls Kill Momentum', 
-    description: 'Creators don\'t need another subscription — they need a reward system that grows with them.' 
+    description: 'Creators don\'t need another subscription - they need a reward system that grows with them.' 
   },
 ];
 
@@ -34,7 +34,7 @@ export function ProblemSolution() {
           className="text-center mb-16"
         >
           <h2 className="font-lora text-[#f9f4e1] leading-[1.15] mb-6" style={{ fontSize: '48px', fontWeight: 700 }}>
-            Why the Future of the Creator Economy Isn't About Paywalls — It's About Participation.
+            Why the Future of the Creator Economy Isn't About Paywalls - It's About Participation.
           </h2>
         </motion.div>
 

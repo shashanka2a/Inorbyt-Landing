@@ -22,7 +22,7 @@ const sections = [
     icon: Users,
     content: [
       'Creators are forced to choose between platforms, fragmenting their audience and limiting growth potential.',
-      'Fans want more than likes and follows—they seek recognition, ownership, and meaningful participation.',
+      'Fans want more than likes and follows - they seek recognition, ownership, and meaningful participation.',
       'Paywalls create barriers that prevent organic community growth and limit creator-fan relationships.',
       'Existing reward systems are complex, require crypto knowledge, and don\'t integrate with established platforms.'
     ]
@@ -35,7 +35,8 @@ const sections = [
       'InOrbyt connects existing platforms (Patreon, YouTube, Substack, Discord) into a unified reward ecosystem.',
       'Creators can reward fans across all platforms with token-based incentives that don\'t require crypto knowledge.',
       'Fans earn tokens through engagement, loyalty, and participation, unlocking exclusive perks and experiences.',
-      'Freelancers can be paid in creator tokens, building portfolios that grow with their clients\' success.'
+      'Freelancers can be paid in creator tokens, building portfolios that grow with their clients\' success.',
+      'Creator SaaS plans (Free, Pro, Studio) provide different tiers of functionality and reward limits.'
     ]
   },
   {
@@ -46,35 +47,37 @@ const sections = [
       'Built on Base blockchain for low-cost, fast transactions with gas-free user experience.',
       'Abstracted crypto complexity through intuitive interfaces and built-in wallet functionality.',
       'API integrations with major platforms enable seamless reward distribution and tracking.',
-      'Smart contract architecture ensures transparent, trustless reward mechanisms.'
+      'Smart contract architecture ensures transparent, trustless reward mechanisms.',
+      'Supabase + Prisma backend handles schema, relationships, and real-time events.',
+      'Privy wallet abstraction provides seamless onboarding without crypto complexity.'
     ]
   }
 ];
 
 const keyFeatures = [
   'Platform Integration: Connect Patreon, YouTube, Substack, and Discord',
-  'Token-Based Rewards: Gas-free, instant reward distribution',
+  'Reward Distribution: Gas-free, instant token airdrops to fans and freelancers',
   'No Crypto Required: Built-in wallets and simplified interfaces',
   'Cross-Platform Analytics: Unified insights across all connected platforms',
-  'Community Ownership: Fans become stakeholders in creator success',
-  'Scalable Architecture: Grows with creator communities'
+  'Community Ownership: Fans become stakeholders through reward participation',
+  'Creator SaaS Plans: Free, Pro, and Studio tiers for different creator needs'
 ];
 
 const roadmap = [
   {
     phase: 'Phase 1',
     title: 'Foundation',
-    items: ['Core platform development', 'Patreon integration', 'Basic reward system', 'Creator onboarding']
+    items: ['Core platform development', 'Patreon integration', 'Reward distribution system', 'Creator onboarding']
   },
   {
     phase: 'Phase 2',
     title: 'Expansion',
-    items: ['YouTube integration', 'Substack support', 'Advanced analytics', 'Community features']
+    items: ['YouTube integration', 'Substack support', 'Advanced analytics', 'Freelancer reward system']
   },
   {
     phase: 'Phase 3',
     title: 'Ecosystem',
-    items: ['Discord bot integration', 'Freelancer marketplace', 'Cross-platform trading', 'API for developers']
+    items: ['Discord bot integration', 'Creator SaaS billing', 'Cross-platform trading', 'API for developers']
   }
 ];
 
@@ -142,10 +145,10 @@ export function WhitepaperContent() {
                 Executive Summary
               </h2>
               <p className="text-[#f9f4e1]/80 text-lg leading-relaxed mb-6">
-                InOrbyt represents a paradigm shift in the creator economy, transforming how creators connect with their audiences and monetize their content. Rather than replacing existing platforms, InOrbyt serves as a reward layer that connects Patreon, YouTube, Substack, and Discord into a unified ecosystem.
+                InOrbyt represents a paradigm shift in the creator economy, transforming how creators connect with their audiences and reward their communities. Rather than replacing existing platforms, InOrbyt serves as a reward layer that connects Patreon, YouTube, Substack, and Discord into a unified ecosystem.
               </p>
               <p className="text-[#f9f4e1]/80 text-lg leading-relaxed">
-                Our platform enables creators to reward fans across all platforms with token-based incentives, turning every fan into a stakeholder in the creator's success. Built on Base blockchain with abstracted complexity, InOrbyt makes advanced reward mechanisms accessible to creators and fans without requiring crypto knowledge.
+                Our platform enables creators to reward fans across all platforms with token-based incentives, turning every fan into a stakeholder in the creator's success. Built on Base blockchain with abstracted complexity, InOrbyt makes advanced reward mechanisms accessible to creators and fans without requiring crypto knowledge or complex transactions.
               </p>
             </div>
           </motion.div>

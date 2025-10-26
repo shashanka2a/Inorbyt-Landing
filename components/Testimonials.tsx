@@ -5,7 +5,7 @@ import { Quote, Star } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "I didn't want to move my audience off Patreon. InOrbyt just let me connect and reward them — without changing anything.",
+    quote: "I didn't want to move my audience off Patreon. InOrbyt just let me connect and reward them without changing anything.",
     author: "Sarah Chen",
     role: "Digital Artist",
     avatar: "S"
