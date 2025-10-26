@@ -15,9 +15,9 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  title: "InOrbyt.io - Creator Token Economy Platform",
-  description: "Launch your own tradeable tokens, reward superfans, and build a thriving creator economy. Join the future of creator monetization with InOrbyt.io.",
-  keywords: ["creator tokens", "creator economy", "crypto", "blockchain", "tokenization", "fan engagement", "creator monetization"],
+  title: "InOrbyt.io - The Reward Layer for the Creator Economy",
+  description: "Empowering creators to connect, reward, and grow — across every platform. Turn your existing platforms into a connected reward ecosystem.",
+  keywords: ["creator rewards", "creator economy", "platform integration", "fan engagement", "reward layer", "creator monetization", "Patreon", "Substack", "YouTube", "Discord"],
   authors: [{ name: "InOrbyt Team" }],
   creator: "InOrbyt.io",
   publisher: "InOrbyt.io",
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "InOrbyt.io - Creator Token Economy Platform",
-    description: "Launch your own tradeable tokens, reward superfans, and build a thriving creator economy.",
+    title: "InOrbyt.io - The Reward Layer for the Creator Economy",
+    description: "Empowering creators to connect, reward, and grow — across every platform.",
     url: "https://inorbyt.io",
     siteName: "InOrbyt.io",
     images: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "InOrbyt.io - Creator Token Economy Platform",
+        alt: "InOrbyt.io - The Reward Layer for the Creator Economy",
       },
     ],
     locale: "en_US",
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "InOrbyt.io - Creator Token Economy Platform",
-    description: "Launch your own tradeable tokens, reward superfans, and build a thriving creator economy.",
+    title: "InOrbyt.io - The Reward Layer for the Creator Economy",
+    description: "Empowering creators to connect, reward, and grow — across every platform.",
     images: ["/twitter-image.png"],
   },
   robots: {

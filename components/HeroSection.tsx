@@ -101,7 +101,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Launch your own creator token
+            Reward your fans and freelancers.
           </motion.span>
           <br />
           <motion.span
@@ -130,7 +130,7 @@ export function HeroSection() {
                 backgroundSize: '200% auto',
               }}
             >
-              and grow with your community.
+              No crypto. No complexity. Just connection.
             </motion.span>
           </motion.span>
         </motion.h1>
@@ -142,7 +142,8 @@ export function HeroSection() {
           className="font-dm-sans text-[#f9f4e1]/80 mb-12 max-w-3xl mx-auto"
           style={{ fontSize: '22px' }}
         >
-          Every creator and fan gets a built-in wallet — no crypto setup needed.
+          InOrbyt turns your existing platforms — Patreon, Substack, YouTube, and Discord — into a connected reward ecosystem.
+          Reward loyalty, celebrate milestones, and give ownership back to your community.
         </motion.p>
 
         <motion.div
@@ -161,7 +162,7 @@ export function HeroSection() {
             style={{ fontSize: '18px', fontWeight: 600 }}
           >
             <motion.span className="relative z-10 flex items-center gap-2">
-              Get Early Access
+              Join Early Access
               <motion.span
                 animate={{ x: [0, 4, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -209,9 +210,9 @@ export function HeroSection() {
           className="mt-20 flex items-center justify-center gap-12 flex-wrap"
         >
           {[
-            { value: '10K+', label: 'Creators' },
-            { value: '500K+', label: 'Community Members' },
-            { value: '$50M+', label: 'Volume Traded' }
+            { value: '10K+', label: 'creators connected' },
+            { value: '500K+', label: 'verified fans' },
+            { value: '$50M+', label: 'creator rewards distributed' }
           ].map((stat, idx) => (
             <motion.div
               key={idx}

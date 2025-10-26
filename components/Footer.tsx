@@ -14,7 +14,8 @@ export function Footer() {
               InOrbyt.io
             </div>
             <p className="text-[#f9f4e1]/70 mb-6" style={{ fontSize: '14px' }}>
-              Creator-owned.<br />Fan-powered.
+              The Reward Layer for the Creator Economy.<br />
+              Built for creators who believe in connection over control.
             </p>
             <div className="flex items-center gap-3">
               <motion.a
@@ -90,7 +91,7 @@ export function Footer() {
               Legal
             </h3>
             <ul className="space-y-3">
-              {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Disclaimer'].map((item) => (
+              {['Privacy Policy', 'Terms', 'Cookie Policy', 'Disclaimer'].map((item) => (
                 <li key={item}>
                   <a href="#" className="text-[#f9f4e1]/70 hover:text-[#f9f4e1] transition-colors duration-200" style={{ fontSize: '14px' }}>
                     {item}

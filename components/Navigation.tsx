@@ -20,7 +20,7 @@ export function Navigation() {
       setIsScrolled(window.scrollY > 20);
       
       // Determine active section
-      const sections = ['how-it-works', 'creators', 'fans', 'freelancers', 'resources', 'whitepaper'];
+      const sections = ['why-creators-need-reward-layer', 'how-it-works', 'for-creators-fans-freelancers', 'discover-reward-ecosystem', 'resources'];
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -53,7 +53,7 @@ export function Navigation() {
     };
   }, [isMobileMenuOpen]);
 
-  const navLinks = ['How It Works', 'Creators', 'Fans', 'Freelancers', 'Resources', 'Whitepaper'];
+  const navLinks = ['How It Works', 'For Creators', 'Ecosystem', 'Resources'];
 
   const handleMobileMenuClick = (sectionId: string) => {
     setIsMobileMenuOpen(false);
@@ -101,7 +101,13 @@ export function Navigation() {
             
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((item) => {
-                const sectionId = item.toLowerCase().replace(/\s+/g, '-');
+                const sectionIdMap: { [key: string]: string } = {
+                  'How It Works': 'how-it-works',
+                  'For Creators': 'for-creators-fans-freelancers',
+                  'Ecosystem': 'discover-reward-ecosystem',
+                  'Resources': 'resources'
+                };
+                const sectionId = sectionIdMap[item] || item.toLowerCase().replace(/\s+/g, '-');
                 const isActive = activeSection === sectionId;
                 
                 return (
@@ -212,7 +218,13 @@ export function Navigation() {
                 {/* Mobile Navigation Links */}
                 <div className="flex-1 space-y-6">
                   {navLinks.map((item, index) => {
-                    const sectionId = item.toLowerCase().replace(/\s+/g, '-');
+                    const sectionIdMap: { [key: string]: string } = {
+                      'How It Works': 'how-it-works',
+                      'For Creators': 'for-creators-fans-freelancers',
+                      'Ecosystem': 'discover-reward-ecosystem',
+                      'Resources': 'resources'
+                    };
+                    const sectionId = sectionIdMap[item] || item.toLowerCase().replace(/\s+/g, '-');
                     const isActive = activeSection === sectionId;
                     
                     return (

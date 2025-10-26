@@ -15,10 +15,10 @@ export function Resources() {
           className="text-center mb-16"
         >
           <h2 className="font-lora text-[#f9f4e1] mb-4" style={{ fontSize: '48px', fontWeight: 700 }}>
-            Resources
+            📘 Resources
           </h2>
           <p className="text-[#f9f4e1]/70 max-w-2xl mx-auto" style={{ fontSize: '20px' }}>
-            Learn more about creator tokens and the InOrbyt platform
+            Learn more about the reward economy.
           </p>
         </motion.div>
 
@@ -55,7 +55,7 @@ export function Resources() {
               Creator Guides
             </h3>
             <p className="text-[#f9f4e1]/70 mb-6 group-hover:text-[#f9f4e1]/90 transition-colors duration-300 relative z-10" style={{ fontSize: '16px' }}>
-              Step-by-step tutorials on launching tokens, setting perks, and growing your community.
+              Step-by-step tutorials for connecting and rewarding across platforms.
             </p>
 
             <motion.div 
@@ -117,7 +117,7 @@ export function Resources() {
               Whitepaper
             </h3>
             <p className="text-[#f9f4e1]/70 mb-6 group-hover:text-[#f9f4e1]/90 transition-colors duration-300 relative z-10" style={{ fontSize: '16px' }}>
-              Deep dive into the InOrbyt protocol, tokenomics, and vision for creator economies.
+              The vision behind decentralized participation and community ownership.
             </p>
 
             <motion.div 

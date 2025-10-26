@@ -1,23 +1,23 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Rocket, Gift, Briefcase } from 'lucide-react';
+import { Link, Gift, BarChart3 } from 'lucide-react';
 
 const steps = [
   {
-    icon: Rocket,
-    title: 'Launch Token',
-    description: 'Create your creator token in minutes. Set initial price and supply.',
+    icon: Link,
+    title: 'Connect Platforms',
+    description: 'Link your existing Patreon, YouTube, or Substack account. No setup needed.',
   },
   {
     icon: Gift,
-    title: 'Add Perks',
-    description: 'Offer exclusive content, access, or experiences to token holders.',
+    title: 'Reward Fans & Freelancers',
+    description: 'Send token-based rewards for milestones, loyalty, or completed work — gas-free and instant.',
   },
   {
-    icon: Briefcase,
-    title: 'Hire Freelancers',
-    description: 'Pay collaborators with your token. Build your creative team.',
+    icon: BarChart3,
+    title: 'Track Engagement',
+    description: 'See your community grow as fans collect, trade, and unlock perks.',
   },
 ];
 
@@ -33,11 +33,8 @@ export function HowItWorks() {
           className="text-center mb-16"
         >
           <h2 className="font-lora text-[#f9f4e1] mb-4" style={{ fontSize: '48px', fontWeight: 700 }}>
-            How It Works
+            Three Simple Steps to Reward Your Community
           </h2>
-          <p className="text-[#f9f4e1]/70 max-w-2xl mx-auto" style={{ fontSize: '20px' }}>
-            Three simple steps to launch your creator economy
-          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -129,6 +126,19 @@ export function HowItWorks() {
             );
           })}
         </div>
+
+        {/* Closing Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-center mt-16"
+        >
+          <p className="font-lora text-[#f9f4e1] text-xl" style={{ fontSize: '24px', fontWeight: 500 }}>
+            Your audience, your rules — powered by Base, abstracted by InOrbyt.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

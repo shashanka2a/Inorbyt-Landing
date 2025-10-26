@@ -2,8 +2,8 @@ import { Navigation } from '@/components/Navigation';
 import { HeroSection } from '@/components/HeroSection';
 import { ProblemSolution } from '@/components/ProblemSolution';
 import { HowItWorks } from '@/components/HowItWorks';
-import { FeaturesCards } from '@/components/FeaturesCards';
-import { TokensShowcase } from '@/components/TokensShowcase';
+import { RolesSection } from '@/components/RolesSection';
+import { EcosystemSection } from '@/components/EcosystemSection';
 import { Testimonials } from '@/components/Testimonials';
 import { Resources } from '@/components/Resources';
 import { Footer } from '@/components/Footer';
@@ -16,8 +16,8 @@ export default function Home() {
       <HeroSection />
       <ProblemSolution />
       <HowItWorks />
-      <FeaturesCards />
-      <TokensShowcase />
+      <RolesSection />
+      <EcosystemSection />
       <Testimonials />
       <Resources />
       <Footer />
