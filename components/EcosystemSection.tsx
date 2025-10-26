@@ -75,9 +75,6 @@ export function EcosystemSection() {
 
               {/* Reward Example */}
               <div className="mb-6">
-                <h4 className="text-[#f9f4e1] mb-3 font-semibold" style={{ fontSize: '16px' }}>
-                  Reward Example:
-                </h4>
                 <p className="text-[#f9f4e1]/80 mb-4" style={{ fontSize: '15px' }}>
                   {example.reward}
                 </p>

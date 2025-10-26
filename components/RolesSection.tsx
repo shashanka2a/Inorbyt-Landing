@@ -10,7 +10,7 @@ const roles = [
     features: [
       'Connect existing platforms',
       'Reward loyal fans instantly',
-      'Manage perks and insights in one dashboard'
+      'Manage perks and insights'
     ],
     ctaText: 'Start Rewarding',
     ctaColor: 'from-orange-500 to-orange-600',
@@ -33,7 +33,7 @@ const roles = [
     title: 'For Freelancers',
     features: [
       'Get paid in creator tokens',
-      'Build a portfolio that grows with your clients',
+      'Build a portfolio that grows',
       'Join verified creator projects'
     ],
     ctaText: 'Find Work',

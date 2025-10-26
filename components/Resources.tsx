@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BookOpen, FileText, ArrowRight } from 'lucide-react';
+import { BookOpen, FileText, ArrowRight, GraduationCap } from 'lucide-react';
+import Link from 'next/link';
 
 export function Resources() {
   return (
@@ -14,26 +15,32 @@ export function Resources() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="font-lora text-[#f9f4e1] mb-4" style={{ fontSize: '48px', fontWeight: 700 }}>
-            📘 Resources
-          </h2>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+              <GraduationCap className="w-6 h-6 text-white" />
+            </div>
+            <h2 className="font-lora text-[#f9f4e1]" style={{ fontSize: '48px', fontWeight: 700 }}>
+              Resources
+            </h2>
+          </div>
           <p className="text-[#f9f4e1]/70 max-w-2xl mx-auto" style={{ fontSize: '20px' }}>
             Learn more about the reward economy.
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ 
-              y: -8,
-              boxShadow: '0 20px 60px rgba(249, 115, 22, 0.2)'
-            }}
-            className="bg-gradient-to-br from-[#151922] to-[#0f1218] p-8 rounded-2xl border border-[#f9f4e1]/10 hover:border-orange-500/40 transition-all duration-500 cursor-pointer group relative overflow-hidden"
-          >
+          <Link href="/creator-guides">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              whileHover={{ 
+                y: -8,
+                boxShadow: '0 20px 60px rgba(249, 115, 22, 0.2)'
+              }}
+              className="bg-gradient-to-br from-[#151922] to-[#0f1218] p-8 rounded-2xl border border-[#f9f4e1]/10 hover:border-orange-500/40 transition-all duration-500 cursor-pointer group relative overflow-hidden"
+            >
             {/* Gradient overlay */}
             <motion.div
               className="absolute inset-0 bg-gradient-to-br from-orange-500/0 via-orange-500/5 to-orange-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
@@ -84,8 +91,10 @@ export function Resources() {
               }}
             />
           </motion.div>
+          </Link>
 
-          <motion.div
+          <Link href="/whitepaper">
+            <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -145,7 +154,8 @@ export function Resources() {
                 background: 'radial-gradient(600px circle at 50% 50%, rgba(249, 115, 22, 0.1), transparent 40%)'
               }}
             />
-          </motion.div>
+            </motion.div>
+          </Link>
         </div>
       </div>
     </section>
