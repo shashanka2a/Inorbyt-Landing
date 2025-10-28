@@ -175,83 +175,83 @@ export function FreelancerDashboard() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-0">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-lora text-[#f9f4e1] text-3xl font-semibold">Freelancer Dashboard</h1>
-          <p className="text-[#f9f4e1]/70 mt-1">Manage your gigs and track your earnings</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h1 className="font-lora text-[#f9f4e1] text-2xl md:text-3xl font-semibold">Freelancer Dashboard</h1>
+          <p className="text-[#f9f4e1]/70 mt-1 text-sm md:text-base">Manage your gigs and track your earnings</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+          className="flex items-center justify-center gap-2 px-4 md:px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 w-full sm:w-auto"
         >
-          <Plus className="w-5 h-5" />
-          Browse Gigs
+          <Plus className="w-4 h-4 md:w-5 md:h-5" />
+          <span className="text-sm md:text-base">Browse Gigs</span>
         </motion.button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-lg flex items-center justify-center">
-              <CheckCircle className="w-6 h-6 text-green-500" />
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-lg flex items-center justify-center">
+              <CheckCircle className="w-4 h-4 md:w-6 md:h-6 text-green-500" />
             </div>
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{stats.completedGigs}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Completed Gigs</p>
+          <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.completedGigs}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Completed Gigs</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-lg flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-purple-500" />
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-lg flex items-center justify-center">
+              <DollarSign className="w-4 h-4 md:w-6 md:h-6 text-purple-500" />
             </div>
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{stats.totalEarnings.toLocaleString()}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Total Earnings</p>
+          <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.totalEarnings.toLocaleString()}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Total Earnings</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 rounded-lg flex items-center justify-center">
-              <Star className="w-6 h-6 text-yellow-500" />
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 rounded-lg flex items-center justify-center">
+              <Star className="w-4 h-4 md:w-6 md:h-6 text-yellow-500" />
             </div>
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{stats.averageRating}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Average Rating</p>
+          <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.averageRating}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Average Rating</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-lg flex items-center justify-center">
-              <Briefcase className="w-6 h-6 text-blue-500" />
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-blue-500/20 to-blue-600/20 rounded-lg flex items-center justify-center">
+              <Briefcase className="w-4 h-4 md:w-6 md:h-6 text-blue-500" />
             </div>
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{stats.activeGigs}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Active Gigs</p>
+          <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.activeGigs}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Active Gigs</p>
         </motion.div>
       </div>
 

@@ -133,88 +133,88 @@ export function CreatorDashboard() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-0">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-lora text-[#f9f4e1] text-3xl font-semibold">Creator Dashboard</h1>
-          <p className="text-[#f9f4e1]/70 mt-1">Manage your community rewards and track engagement</p>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <h1 className="font-lora text-[#f9f4e1] text-2xl md:text-3xl font-semibold">Creator Dashboard</h1>
+          <p className="text-[#f9f4e1]/70 mt-1 text-sm md:text-base">Manage your community rewards and track engagement</p>
         </div>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowRewardModal(true)}
-          className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+          className="flex items-center justify-center gap-2 px-4 md:px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 w-full sm:w-auto"
         >
-          <Plus className="w-5 h-5" />
-          Send Reward
+          <Plus className="w-4 h-4 md:w-5 md:h-5" />
+          <span className="text-sm md:text-base">Send Reward</span>
         </motion.button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-lg flex items-center justify-center">
-              <Gift className="w-6 h-6 text-orange-500" />
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-lg flex items-center justify-center">
+              <Gift className="w-4 h-4 md:w-6 md:h-6 text-orange-500" />
             </div>
-            <TrendingUp className="w-5 h-5 text-green-400" />
+            <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{stats.totalRewards.toLocaleString()}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Total Rewards Sent</p>
+          <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.totalRewards.toLocaleString()}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Total Rewards Sent</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-lg flex items-center justify-center">
-              <Users className="w-6 h-6 text-purple-500" />
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-purple-500/20 to-purple-600/20 rounded-lg flex items-center justify-center">
+              <Users className="w-4 h-4 md:w-6 md:h-6 text-purple-500" />
             </div>
-            <TrendingUp className="w-5 h-5 text-green-400" />
+            <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{stats.totalFans}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Active Fans</p>
+          <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.totalFans}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Active Fans</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-amber-500/20 to-amber-600/20 rounded-lg flex items-center justify-center">
-              <Send className="w-6 h-6 text-amber-500" />
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-amber-500/20 to-amber-600/20 rounded-lg flex items-center justify-center">
+              <Send className="w-4 h-4 md:w-6 md:h-6 text-amber-500" />
             </div>
-            <TrendingUp className="w-5 h-5 text-green-400" />
+            <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{stats.totalFreelancers}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Freelancers</p>
+          <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.totalFreelancers}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Freelancers</p>
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-lg flex items-center justify-center">
-              <DollarSign className="w-6 h-6 text-green-500" />
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-8 h-8 md:w-12 md:h-12 bg-gradient-to-br from-green-500/20 to-green-600/20 rounded-lg flex items-center justify-center">
+              <DollarSign className="w-4 h-4 md:w-6 md:h-6 text-green-500" />
             </div>
-            <TrendingUp className="w-5 h-5 text-green-400" />
+            <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{stats.tokenBalance.toLocaleString()}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Token Balance</p>
+          <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.tokenBalance.toLocaleString()}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Token Balance</p>
         </motion.div>
       </div>
 
@@ -223,43 +223,43 @@ export function CreatorDashboard() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+        className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
       >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="font-lora text-[#f9f4e1] text-xl font-semibold">Recent Rewards</h2>
-          <button className="text-orange-500 hover:text-orange-400 text-sm font-medium">
+        <div className="flex items-center justify-between mb-4 md:mb-6">
+          <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold">Recent Rewards</h2>
+          <button className="text-orange-500 hover:text-orange-400 text-xs md:text-sm font-medium">
             View All
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           {recentRewards.map((reward, index) => (
             <motion.div
               key={reward.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center justify-between p-4 bg-[#0a0e1a] rounded-lg border border-[#f9f4e1]/5"
+              className="flex items-center justify-between p-3 md:p-4 bg-[#0a0e1a] rounded-lg border border-[#f9f4e1]/5"
             >
-              <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
                   reward.type === 'fan' ? 'bg-purple-500/20' : 'bg-amber-500/20'
                 }`}>
                   {reward.type === 'fan' ? (
-                    <Users className="w-5 h-5 text-purple-500" />
+                    <Users className="w-4 h-4 md:w-5 md:h-5 text-purple-500" />
                   ) : (
-                    <Send className="w-5 h-5 text-amber-500" />
+                    <Send className="w-4 h-4 md:w-5 md:h-5 text-amber-500" />
                   )}
                 </div>
-                <div>
-                  <p className="text-[#f9f4e1] font-medium">{reward.recipient}</p>
-                  <p className="text-[#f9f4e1]/60 text-sm">{reward.reason}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[#f9f4e1] font-medium text-sm md:text-base truncate">{reward.recipient}</p>
+                  <p className="text-[#f9f4e1]/60 text-xs md:text-sm truncate">{reward.reason}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
                 <div className="text-right">
-                  <p className="text-[#f9f4e1] font-semibold">+{reward.amount}</p>
-                  <p className="text-[#f9f4e1]/60 text-sm">{formatTimeAgo(reward.timestamp)}</p>
+                  <p className="text-[#f9f4e1] font-semibold text-sm md:text-base">+{reward.amount}</p>
+                  <p className="text-[#f9f4e1]/60 text-xs">{formatTimeAgo(reward.timestamp)}</p>
                 </div>
                 {getStatusIcon(reward.status)}
               </div>
@@ -275,13 +275,13 @@ export function CreatorDashboard() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6"
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-6"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-2xl border border-[#f9f4e1]/10 p-8 max-w-md w-full"
+              className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl md:rounded-2xl border border-[#f9f4e1]/10 p-6 md:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
             >
               <h3 className="font-lora text-[#f9f4e1] text-xl font-semibold mb-6">Send Reward</h3>
               
