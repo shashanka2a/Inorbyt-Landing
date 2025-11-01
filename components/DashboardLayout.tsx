@@ -6,10 +6,8 @@ import {
   LayoutDashboard, 
   Users, 
   Gift, 
-  Briefcase, 
   Settings, 
   BarChart3,
-  Wallet,
   LogOut,
   Bell,
   Search
@@ -21,7 +19,7 @@ interface User {
   id: string;
   name: string;
   email: string;
-  role: 'creator' | 'fan' | 'freelancer';
+  role: 'creator' | 'fan';
   avatar?: string;
   walletAddress?: string;
   plan?: 'free' | 'pro' | 'studio';
@@ -33,7 +31,7 @@ interface DashboardLayoutProps {
   onLogout: () => void;
 }
 
-const navigationItems = [
+const creatorNavItems = [
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
   { id: 'rewards', label: 'Rewards', icon: Gift, href: '/rewards' },
   { id: 'community', label: 'Community', icon: Users, href: '/community' },
@@ -41,16 +39,11 @@ const navigationItems = [
   { id: 'settings', label: 'Settings', icon: Settings, href: '/settings' },
 ];
 
-const creatorNavItems = [
-  ...navigationItems,
-  { id: 'freelancers', label: 'Freelancers', icon: Briefcase, href: '/freelancers' },
-];
-
-const freelancerNavItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/freelancer/dashboard' },
-  { id: 'gigs', label: 'My Gigs', icon: Briefcase, href: '/freelancer/gigs' },
-  { id: 'earnings', label: 'Earnings', icon: Wallet, href: '/freelancer/earnings' },
-  { id: 'settings', label: 'Settings', icon: Settings, href: '/freelancer/settings' },
+const fanNavItems = [
+  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
+  { id: 'perks', label: 'My Perks', icon: Gift, href: '/perks' },
+  { id: 'activity', label: 'Activity', icon: BarChart3, href: '/activity' },
+  { id: 'settings', label: 'Settings', icon: Settings, href: '/settings' },
 ];
 
 export function DashboardLayout({ children, user, onLogout }: DashboardLayoutProps) {
@@ -62,10 +55,10 @@ export function DashboardLayout({ children, user, onLogout }: DashboardLayoutPro
     switch (user.role) {
       case 'creator':
         return creatorNavItems;
-      case 'freelancer':
-        return freelancerNavItems;
+      case 'fan':
+        return fanNavItems;
       default:
-        return navigationItems;
+        return fanNavItems;
     }
   };
 
@@ -116,7 +109,6 @@ export function DashboardLayout({ children, user, onLogout }: DashboardLayoutPro
                 <div className="flex items-center gap-1 md:gap-2 mt-1">
                   <span className={`px-1.5 md:px-2 py-0.5 rounded-full text-xs font-medium ${
                     user.role === 'creator' ? 'bg-orange-500/20 text-orange-400' :
-                    user.role === 'freelancer' ? 'bg-amber-500/20 text-amber-400' :
                     'bg-purple-500/20 text-purple-400'
                   }`}>
                     {user.role.charAt(0).toUpperCase() + user.role.slice(1)}

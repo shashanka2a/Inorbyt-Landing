@@ -4,18 +4,19 @@ import { useState, useEffect } from 'react';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { CreatorOnboarding } from '@/components/CreatorOnboarding';
 import { CreatorDashboard } from '@/components/CreatorDashboard';
-import { FanVerificationFlow } from '@/components/FanVerificationFlow';
-import { FreelancerDashboard } from '@/components/FreelancerDashboard';
+import { FanJoinFlow } from '@/components/FanJoinFlow';
+import { FanDashboard } from '@/components/FanDashboard';
 
 interface User {
   id: string;
   name: string;
   email: string;
-  role: 'creator' | 'fan' | 'freelancer';
+  role: 'creator' | 'fan';
   avatar?: string;
   walletAddress?: string;
   plan?: 'free' | 'pro' | 'studio';
   onboardingComplete?: boolean;
+  joinFlowComplete?: boolean;
 }
 
 export default function DashboardPage() {
@@ -26,7 +27,8 @@ export default function DashboardPage() {
     role: 'creator',
     walletAddress: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6',
     plan: 'pro',
-    onboardingComplete: false
+    onboardingComplete: false,
+    joinFlowComplete: false
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -40,6 +42,10 @@ export default function DashboardPage() {
 
   const handleOnboardingComplete = () => {
     setUser(prev => ({ ...prev, onboardingComplete: true }));
+  };
+
+  const handleJoinFlowComplete = () => {
+    setUser(prev => ({ ...prev, joinFlowComplete: true }));
   };
 
   const handleLogout = () => {
@@ -70,9 +76,13 @@ export default function DashboardPage() {
     );
   }
 
-  // Show fan verification flow for fans
-  if (user.role === 'fan') {
-    return <FanVerificationFlow />;
+  // Show fan join flow for fans who haven't completed it
+  if (user.role === 'fan' && !user.joinFlowComplete) {
+    return (
+      <FanJoinFlow
+        onComplete={handleJoinFlowComplete}
+      />
+    );
   }
 
   // Show appropriate dashboard based on user role
@@ -80,8 +90,8 @@ export default function DashboardPage() {
     switch (user.role) {
       case 'creator':
         return <CreatorDashboard />;
-      case 'freelancer':
-        return <FreelancerDashboard />;
+      case 'fan':
+        return <FanDashboard />;
       default:
         return (
           <div className="text-center py-12">

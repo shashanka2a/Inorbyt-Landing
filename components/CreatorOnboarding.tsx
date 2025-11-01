@@ -6,12 +6,14 @@ import {
   ArrowRight, 
   Check, 
   Link as LinkIcon, 
-  Coins, 
-  Users, 
-  Zap,
-  ExternalLink,
+  Settings,
+  Gift,
   Copy,
-  CheckCircle
+  CheckCircle,
+  MessageSquare,
+  Award,
+  Users,
+  ExternalLink
 } from 'lucide-react';
 
 interface OnboardingStep {
@@ -31,39 +33,45 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState<OnboardingStep[]>([
     {
-      id: 'connect-wallet',
-      title: 'Connect Your Wallet',
-      description: 'Connect your wallet to Base network to start creating rewards',
+      id: 'connect-discord',
+      title: 'Connect Your Discord Server',
+      description: 'Link your Discord server to enable automatic rewards for your community',
       icon: LinkIcon,
       completed: false
     },
     {
-      id: 'create-token',
-      title: 'Create Your Creator Token',
-      description: 'Deploy your unique token that represents your community',
-      icon: Coins,
+      id: 'get-join-link',
+      title: 'Get Your Creator Link',
+      description: 'Share this link with your Discord community so fans can join and earn rewards',
+      icon: LinkIcon,
       completed: false
     },
     {
-      id: 'link-platforms',
-      title: 'Connect Your Platforms',
-      description: 'Link Patreon, YouTube, Substack, or Discord to your reward system',
-      icon: Users,
+      id: 'configure-rewards',
+      title: 'Configure Automatic Rewards',
+      description: 'Set up rules for rewarding Discord engagement automatically',
+      icon: Settings,
       completed: false
     },
     {
-      id: 'first-reward',
-      title: 'Send Your First Reward',
-      description: 'Reward a fan or freelancer to complete your setup',
-      icon: Zap,
+      id: 'create-perks',
+      title: 'Create Perks',
+      description: 'Define perks that unlock automatically when fans reach token milestones',
+      icon: Gift,
       completed: false
     }
   ]);
 
-  const [walletConnected, setWalletConnected] = useState(false);
-  const [tokenCreated, setTokenCreated] = useState(false);
-  const [platformsLinked, setPlatformsLinked] = useState<string[]>([]);
-  const [firstRewardSent, setFirstRewardSent] = useState(false);
+  const [discordConnected, setDiscordConnected] = useState(false);
+  const [joinLink, setJoinLink] = useState('');
+  const [joinLinkCopied, setJoinLinkCopied] = useState(false);
+  const [rewardRules, setRewardRules] = useState({
+    welcomeReward: 10,
+    messageReward: 5,
+    roleReward: 20,
+    eventReward: 15
+  });
+  const [perksCreated, setPerksCreated] = useState(false);
 
   const handleStepComplete = (stepId: string) => {
     setSteps(prev => prev.map(step => 
@@ -77,33 +85,34 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
     }
   };
 
-  const handleConnectWallet = () => {
-    // Mock wallet connection
+  const handleConnectDiscord = () => {
+    // Mock Discord OAuth connection
     setTimeout(() => {
-      setWalletConnected(true);
-      handleStepComplete('connect-wallet');
-    }, 1500);
-  };
-
-  const handleCreateToken = () => {
-    // Mock token creation
-    setTimeout(() => {
-      setTokenCreated(true);
-      handleStepComplete('create-token');
+      setDiscordConnected(true);
+      // Auto-generate join link
+      setJoinLink('https://inorbyt.io/c/sarah-chen');
+      handleStepComplete('connect-discord');
     }, 2000);
   };
 
-  const handleLinkPlatform = (platform: string) => {
-    if (!platformsLinked.includes(platform)) {
-      setPlatformsLinked(prev => [...prev, platform]);
-    }
+  const handleCopyJoinLink = () => {
+    navigator.clipboard.writeText(joinLink);
+    setJoinLinkCopied(true);
+    setTimeout(() => setJoinLinkCopied(false), 2000);
   };
 
-  const handleSendFirstReward = () => {
-    // Mock reward sending
+  const handleSaveRewardRules = () => {
+    // Mock save
     setTimeout(() => {
-      setFirstRewardSent(true);
-      handleStepComplete('first-reward');
+      handleStepComplete('configure-rewards');
+    }, 1000);
+  };
+
+  const handleCreatePerks = () => {
+    // Mock perk creation
+    setTimeout(() => {
+      setPerksCreated(true);
+      handleStepComplete('create-perks');
     }, 1500);
   };
 
@@ -156,39 +165,48 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
           <AnimatePresence mode="wait">
             {currentStep === 0 && (
               <motion.div
-                key="wallet"
+                key="discord"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-6"
               >
                 <div className="bg-[#0a0e1a] rounded-lg p-6 border border-[#f9f4e1]/10">
-                  <h3 className="text-[#f9f4e1] font-semibold mb-3">Connect to Base Network</h3>
+                  <h3 className="text-[#f9f4e1] font-semibold mb-3">Connect Discord Server</h3>
                   <p className="text-[#f9f4e1]/70 mb-4">
-                    Your wallet will be connected to Base network for gas-free transactions.
+                    Authenticate with Discord to link your server. We'll verify you own the server and enable automatic rewards.
                   </p>
-                  <div className="flex items-center gap-3 text-sm text-[#f9f4e1]/60">
-                    <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span>Gas-free transactions</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm text-[#f9f4e1]/60 mt-2">
-                    <CheckCircle className="w-4 h-4 text-green-400" />
-                    <span>Built-in wallet abstraction</span>
+                  <div className="space-y-2 text-sm text-[#f9f4e1]/60">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-4 h-4 text-green-400" />
+                      <span>Secure OAuth authentication</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-4 h-4 text-green-400" />
+                      <span>Server ownership verification</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="w-4 h-4 text-green-400" />
+                      <span>Automatic reward token created</span>
+                    </div>
                   </div>
                 </div>
                 
                 <motion.button
-                  onClick={handleConnectWallet}
-                  disabled={walletConnected}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+                  onClick={handleConnectDiscord}
+                  disabled={discordConnected}
+                  className="w-full px-6 py-3 bg-[#5865F2] text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#4752C4] transition-all duration-200 flex items-center justify-center gap-2"
                 >
-                  {walletConnected ? (
-                    <div className="flex items-center justify-center gap-2">
+                  {discordConnected ? (
+                    <>
                       <Check className="w-5 h-5" />
-                      Wallet Connected
-                    </div>
+                      Discord Connected
+                    </>
                   ) : (
-                    'Connect Wallet'
+                    <>
+                      <ExternalLink className="w-5 h-5" />
+                      Connect Discord
+                    </>
                   )}
                 </motion.button>
               </motion.div>
@@ -196,160 +214,213 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
 
             {currentStep === 1 && (
               <motion.div
-                key="token"
+                key="join-link"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-6"
               >
                 <div className="bg-[#0a0e1a] rounded-lg p-6 border border-[#f9f4e1]/10">
-                  <h3 className="text-[#f9f4e1] font-semibold mb-3">Your Creator Token</h3>
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Token Name</label>
-                      <input
-                        type="text"
-                        placeholder="e.g., SarahCoin"
-                        className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Token Symbol</label>
-                      <input
-                        type="text"
-                        placeholder="e.g., SARAH"
-                        className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Initial Supply</label>
-                      <input
-                        type="number"
-                        placeholder="1000000"
-                        className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
-                      />
-                    </div>
+                  <h3 className="text-[#f9f4e1] font-semibold mb-3">Your Creator Link</h3>
+                  <p className="text-[#f9f4e1]/70 mb-4">
+                    Share this link in your Discord server. Fans who click it will automatically join your reward community and receive welcome tokens.
+                  </p>
+                  
+                  <div className="flex items-center gap-2 p-3 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg">
+                    <input
+                      type="text"
+                      value={joinLink}
+                      readOnly
+                      className="flex-1 bg-transparent text-[#f9f4e1] focus:outline-none"
+                    />
+                    <button
+                      onClick={handleCopyJoinLink}
+                      className="p-2 bg-[#f9f4e1]/10 hover:bg-[#f9f4e1]/20 rounded-lg transition-colors"
+                    >
+                      {joinLinkCopied ? (
+                        <Check className="w-4 h-4 text-green-400" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-[#f9f4e1]/70" />
+                      )}
+                    </button>
+                  </div>
+                  
+                  <div className="mt-4 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                    <p className="text-green-400 text-sm flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4" />
+                      Your reward token has been automatically created!
+                    </p>
                   </div>
                 </div>
                 
                 <motion.button
-                  onClick={handleCreateToken}
-                  disabled={tokenCreated}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+                  onClick={() => handleStepComplete('get-join-link')}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
                 >
-                  {tokenCreated ? (
-                    <div className="flex items-center justify-center gap-2">
-                      <Check className="w-5 h-5" />
-                      Token Created
-                    </div>
-                  ) : (
-                    'Create Token'
-                  )}
+                  Continue
                 </motion.button>
               </motion.div>
             )}
 
             {currentStep === 2 && (
               <motion.div
-                key="platforms"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="space-y-6"
-              >
-                <div className="grid grid-cols-2 gap-4">
-                  {['Patreon', 'YouTube', 'Substack', 'Discord'].map((platform) => (
-                    <motion.button
-                      key={platform}
-                      onClick={() => handleLinkPlatform(platform)}
-                      className={`p-4 rounded-lg border transition-all duration-200 ${
-                        platformsLinked.includes(platform)
-                          ? 'border-green-500/50 bg-green-500/10'
-                          : 'border-[#f9f4e1]/10 bg-[#0a0e1a] hover:border-orange-500/50'
-                      }`}
-                    >
-                      <div className="text-center">
-                        <div className={`w-8 h-8 rounded-lg mx-auto mb-2 flex items-center justify-center ${
-                          platformsLinked.includes(platform) ? 'bg-green-500' : 'bg-[#f9f4e1]/10'
-                        }`}>
-                          {platformsLinked.includes(platform) ? (
-                            <Check className="w-4 h-4 text-white" />
-                          ) : (
-                            <ExternalLink className="w-4 h-4 text-[#f9f4e1]/70" />
-                          )}
-                        </div>
-                        <span className={`text-sm font-medium ${
-                          platformsLinked.includes(platform) ? 'text-green-400' : 'text-[#f9f4e1]/70'
-                        }`}>
-                          {platform}
-                        </span>
-                      </div>
-                    </motion.button>
-                  ))}
-                </div>
-                
-                <motion.button
-                  onClick={() => handleStepComplete('link-platforms')}
-                  disabled={platformsLinked.length === 0}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
-                >
-                  Continue ({platformsLinked.length} connected)
-                </motion.button>
-              </motion.div>
-            )}
-
-            {currentStep === 3 && (
-              <motion.div
-                key="reward"
+                key="rewards"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-6"
               >
                 <div className="bg-[#0a0e1a] rounded-lg p-6 border border-[#f9f4e1]/10">
-                  <h3 className="text-[#f9f4e1] font-semibold mb-3">Send Your First Reward</h3>
+                  <h3 className="text-[#f9f4e1] font-semibold mb-4">Automatic Reward Rules</h3>
+                  <p className="text-[#f9f4e1]/70 mb-6 text-sm">
+                    Configure how many tokens fans earn for different Discord activities. Rewards are issued automatically!
+                  </p>
+                  
                   <div className="space-y-4">
-                    <div>
-                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Recipient</label>
-                      <select className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50">
-                        <option>Select a fan or freelancer</option>
-                        <option>@sarahfan123 (Fan)</option>
-                        <option>@designer_mike (Freelancer)</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Amount</label>
+                    <div className="flex items-center justify-between p-3 bg-[#151922] rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <Users className="w-5 h-5 text-purple-400" />
+                        <div>
+                          <p className="text-[#f9f4e1] font-medium">Welcome Reward</p>
+                          <p className="text-[#f9f4e1]/60 text-sm">When fans join via your link</p>
+                        </div>
+                      </div>
                       <input
                         type="number"
-                        placeholder="100"
-                        className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
+                        value={rewardRules.welcomeReward}
+                        onChange={(e) => setRewardRules(prev => ({ ...prev, welcomeReward: parseInt(e.target.value) || 0 }))}
+                        className="w-20 px-2 py-1 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded text-[#f9f4e1] text-center"
                       />
                     </div>
-                    <div>
-                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Reason</label>
-                      <textarea
-                        placeholder="Thanks for your support!"
-                        className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
-                        rows={3}
+                    
+                    <div className="flex items-center justify-between p-3 bg-[#151922] rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <MessageSquare className="w-5 h-5 text-blue-400" />
+                        <div>
+                          <p className="text-[#f9f4e1] font-medium">Message Activity</p>
+                          <p className="text-[#f9f4e1]/60 text-sm">Per active message (rate-limited)</p>
+                        </div>
+                      </div>
+                      <input
+                        type="number"
+                        value={rewardRules.messageReward}
+                        onChange={(e) => setRewardRules(prev => ({ ...prev, messageReward: parseInt(e.target.value) || 0 }))}
+                        className="w-20 px-2 py-1 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded text-[#f9f4e1] text-center"
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-[#151922] rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <Award className="w-5 h-5 text-amber-400" />
+                        <div>
+                          <p className="text-[#f9f4e1] font-medium">Role Assignment</p>
+                          <p className="text-[#f9f4e1]/60 text-sm">When fans earn Discord roles</p>
+                        </div>
+                      </div>
+                      <input
+                        type="number"
+                        value={rewardRules.roleReward}
+                        onChange={(e) => setRewardRules(prev => ({ ...prev, roleReward: parseInt(e.target.value) || 0 }))}
+                        className="w-20 px-2 py-1 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded text-[#f9f4e1] text-center"
+                      />
+                    </div>
+                    
+                    <div className="flex items-center justify-between p-3 bg-[#151922] rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <Gift className="w-5 h-5 text-orange-400" />
+                        <div>
+                          <p className="text-[#f9f4e1] font-medium">Special Events</p>
+                          <p className="text-[#f9f4e1]/60 text-sm">For event participation</p>
+                        </div>
+                      </div>
+                      <input
+                        type="number"
+                        value={rewardRules.eventReward}
+                        onChange={(e) => setRewardRules(prev => ({ ...prev, eventReward: parseInt(e.target.value) || 0 }))}
+                        className="w-20 px-2 py-1 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded text-[#f9f4e1] text-center"
                       />
                     </div>
                   </div>
                 </div>
                 
                 <motion.button
-                  onClick={handleSendFirstReward}
-                  disabled={firstRewardSent}
+                  onClick={handleSaveRewardRules}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+                >
+                  Save Reward Rules
+                </motion.button>
+              </motion.div>
+            )}
+
+            {currentStep === 3 && (
+              <motion.div
+                key="perks"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="space-y-6"
+              >
+                <div className="bg-[#0a0e1a] rounded-lg p-6 border border-[#f9f4e1]/10">
+                  <h3 className="text-[#f9f4e1] font-semibold mb-3">Create Your First Perk</h3>
+                  <p className="text-[#f9f4e1]/70 mb-4 text-sm">
+                    Perks unlock automatically when fans reach token milestones. You can add more perks later in your dashboard.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Perk Name</label>
+                      <input
+                        type="text"
+                        placeholder="Exclusive Role"
+                        className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Description</label>
+                      <textarea
+                        placeholder="Special Discord role for active community members"
+                        className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
+                        rows={2}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Unlock Threshold (Tokens)</label>
+                      <input
+                        type="number"
+                        placeholder="50"
+                        className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
+                      />
+                      <p className="text-[#f9f4e1]/60 text-xs mt-1">Fans need this many tokens to unlock</p>
+                    </div>
+                    <div>
+                      <label className="block text-[#f9f4e1]/70 text-sm mb-2">Delivery Type</label>
+                      <select className="w-full px-3 py-2 bg-[#151922] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50">
+                        <option>Discord Role</option>
+                        <option>Access Link</option>
+                        <option>Redemption Code</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                
+                <motion.button
+                  onClick={handleCreatePerks}
+                  disabled={perksCreated}
                   className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
                 >
-                  {firstRewardSent ? (
+                  {perksCreated ? (
                     <div className="flex items-center justify-center gap-2">
                       <Check className="w-5 h-5" />
-                      Reward Sent!
+                      Perk Created!
                     </div>
                   ) : (
-                    'Send Reward'
+                    'Create Perk'
                   )}
                 </motion.button>
+                
+                <p className="text-center text-[#f9f4e1]/60 text-sm">
+                  You can add more perks anytime in your dashboard
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -358,7 +429,7 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#f9f4e1]/10">
             <button
               onClick={onSkip}
-              className="text-[#f9f4e1]/60 hover:text-[#f9f4e1] transition-colors"
+              className="text-[#f9f4e1]/60 hover:text-[#f9f4e1] transition-colors text-sm"
             >
               Skip for now
             </button>
