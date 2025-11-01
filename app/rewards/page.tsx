@@ -1,243 +1,219 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { DashboardLayout } from '@/components/DashboardLayout';
 import { 
-  Plus, 
-  Filter, 
   Search, 
-  Calendar,
   Clock,
   CheckCircle,
-  AlertCircle,
-  Send,
   Users,
-  Briefcase,
-  MoreHorizontal,
-  Edit,
-  Trash2,
-  Copy
+  MessageSquare,
+  Award,
+  Sparkles,
+  Gift,
+  TrendingUp,
+  Calendar
 } from 'lucide-react';
 
-interface Reward {
+interface AutomaticReward {
   id: string;
   recipient: string;
-  recipientType: 'fan' | 'freelancer';
   amount: number;
-  reason: string;
-  status: 'pending' | 'sent' | 'failed';
+  eventType: 'welcome' | 'message' | 'role' | 'event';
   timestamp: Date;
   platform: string;
-  tokenSymbol: string;
 }
 
-interface RewardTemplate {
-  id: string;
-  name: string;
-  amount: number;
-  reason: string;
-  recipientType: 'fan' | 'freelancer';
-}
-
-export function RewardsPage() {
-  const [rewards, setRewards] = useState<Reward[]>([
+function RewardsPageContent() {
+  const [rewards] = useState<AutomaticReward[]>([
     {
       id: '1',
       recipient: '@sarahfan123',
-      recipientType: 'fan',
-      amount: 50,
-      reason: 'Shared my latest video',
-      status: 'sent',
+      amount: 10,
+      eventType: 'welcome',
       timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
-      platform: 'YouTube',
-      tokenSymbol: 'SARAH'
+      platform: 'Discord'
     },
     {
       id: '2',
-      recipient: '@designer_mike',
-      recipientType: 'freelancer',
-      amount: 200,
-      reason: 'Logo design completed',
-      status: 'sent',
+      recipient: '@mike_supports',
+      amount: 5,
+      eventType: 'message',
       timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000),
-      platform: 'Discord',
-      tokenSymbol: 'SARAH'
+      platform: 'Discord'
     },
     {
       id: '3',
-      recipient: '@music_lover',
-      recipientType: 'fan',
-      amount: 25,
-      reason: 'First-time supporter',
-      status: 'pending',
+      recipient: '@emma_fan',
+      amount: 20,
+      eventType: 'role',
       timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
-      platform: 'Patreon',
-      tokenSymbol: 'SARAH'
+      platform: 'Discord'
     },
     {
       id: '4',
-      recipient: '@video_editor',
-      recipientType: 'freelancer',
-      amount: 150,
-      reason: 'Video editing service',
-      status: 'failed',
+      recipient: '@alex_member',
+      amount: 15,
+      eventType: 'event',
       timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000),
-      platform: 'Substack',
-      tokenSymbol: 'SARAH'
-    }
-  ]);
-
-  const [templates, setTemplates] = useState<RewardTemplate[]>([
-    {
-      id: '1',
-      name: 'Video Share Reward',
-      amount: 50,
-      reason: 'Thanks for sharing my content!',
-      recipientType: 'fan'
+      platform: 'Discord'
     },
     {
-      id: '2',
-      name: 'First Supporter',
-      amount: 25,
-      reason: 'Welcome to the community!',
-      recipientType: 'fan'
-    },
-    {
-      id: '3',
-      name: 'Design Work',
-      amount: 200,
-      reason: 'Great work on the design!',
-      recipientType: 'freelancer'
+      id: '5',
+      recipient: '@john_designer',
+      amount: 10,
+      eventType: 'welcome',
+      timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000),
+      platform: 'Discord'
     }
   ]);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'pending' | 'sent' | 'failed'>('all');
-  const [typeFilter, setTypeFilter] = useState<'all' | 'fan' | 'freelancer'>('all');
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showTemplateModal, setShowTemplateModal] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<RewardTemplate | null>(null);
+  const [eventFilter, setEventFilter] = useState<'all' | 'welcome' | 'message' | 'role' | 'event'>('all');
 
   const filteredRewards = rewards.filter(reward => {
-    const matchesSearch = reward.recipient.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         reward.reason.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || reward.status === statusFilter;
-    const matchesType = typeFilter === 'all' || reward.recipientType === typeFilter;
-    return matchesSearch && matchesStatus && matchesType;
+    const matchesSearch = reward.recipient.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesEvent = eventFilter === 'all' || reward.eventType === eventFilter;
+    return matchesSearch && matchesEvent;
   });
+
+  const totalRewards = rewards.reduce((sum, r) => sum + r.amount, 0);
+  const rewardsByType = {
+    welcome: rewards.filter(r => r.eventType === 'welcome').length,
+    message: rewards.filter(r => r.eventType === 'message').length,
+    role: rewards.filter(r => r.eventType === 'role').length,
+    event: rewards.filter(r => r.eventType === 'event').length
+  };
 
   const formatTimeAgo = (date: Date) => {
     const now = new Date();
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
+    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
+    const diffInHours = Math.floor(diffInMinutes / 60);
     
-    if (diffInHours < 1) return 'Just now';
+    if (diffInMinutes < 1) return 'Just now';
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
     if (diffInHours < 24) return `${diffInHours}h ago`;
     return `${Math.floor(diffInHours / 24)}d ago`;
   };
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'sent':
-        return <CheckCircle className="w-4 h-4 text-green-400" />;
-      case 'pending':
-        return <Clock className="w-4 h-4 text-yellow-400" />;
-      case 'failed':
-        return <AlertCircle className="w-4 h-4 text-red-400" />;
+  const getEventIcon = (type: string) => {
+    switch (type) {
+      case 'welcome':
+        return <Users className="w-4 h-4 text-purple-400" />;
+      case 'message':
+        return <MessageSquare className="w-4 h-4 text-blue-400" />;
+      case 'role':
+        return <Award className="w-4 h-4 text-amber-400" />;
+      case 'event':
+        return <Sparkles className="w-4 h-4 text-orange-400" />;
       default:
-        return null;
+        return <Gift className="w-4 h-4 text-green-400" />;
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'sent':
-        return 'text-green-400 bg-green-500/20';
-      case 'pending':
-        return 'text-yellow-400 bg-yellow-500/20';
-      case 'failed':
-        return 'text-red-400 bg-red-500/20';
-      default:
-        return 'text-[#f9f4e1]/60 bg-[#f9f4e1]/10';
+  const getEventLabel = (type: string) => {
+    switch (type) {
+      case 'welcome': return 'Welcome Reward';
+      case 'message': return 'Message Activity';
+      case 'role': return 'Role Assignment';
+      case 'event': return 'Special Event';
+      default: return type;
     }
-  };
-
-  const handleUseTemplate = (template: RewardTemplate) => {
-    setSelectedTemplate(template);
-    setShowCreateModal(true);
-    setShowTemplateModal(false);
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="font-lora text-[#f9f4e1] text-3xl font-semibold">Rewards</h1>
-          <p className="text-[#f9f4e1]/70 mt-1">Manage and track your community rewards</p>
-        </div>
-        <div className="flex gap-3">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setShowTemplateModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors"
-          >
-            <Copy className="w-4 h-4" />
-            Templates
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setShowCreateModal(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
-          >
-            <Plus className="w-5 h-5" />
-            Send Reward
-          </motion.button>
+          <h1 className="font-lora text-[#f9f4e1] text-2xl md:text-3xl font-semibold">Automatic Rewards</h1>
+          <p className="text-[#f9f4e1]/70 mt-1 text-sm md:text-base">Track automatic rewards issued to your Discord community</p>
         </div>
       </div>
 
+      {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6 col-span-2 md:col-span-1"
+        >
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-lg flex items-center justify-center">
+              <Gift className="w-5 h-5 md:w-6 md:h-6 text-orange-500" />
+            </div>
+          </div>
+          <h3 className="text-[#f9f4e1] text-xl md:text-2xl font-semibold">{totalRewards}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Total Distributed</p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
+        >
+          <Users className="w-5 h-5 md:w-6 md:h-6 text-purple-400 mb-2" />
+          <h3 className="text-[#f9f4e1] text-xl md:text-2xl font-semibold">{rewardsByType.welcome}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Welcome</p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
+        >
+          <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-blue-400 mb-2" />
+          <h3 className="text-[#f9f4e1] text-xl md:text-2xl font-semibold">{rewardsByType.message}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Messages</p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
+        >
+          <Award className="w-5 h-5 md:w-6 md:h-6 text-amber-400 mb-2" />
+          <h3 className="text-[#f9f4e1] text-xl md:text-2xl font-semibold">{rewardsByType.role}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Roles</p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
+        >
+          <Sparkles className="w-5 h-5 md:w-6 md:h-6 text-orange-400 mb-2" />
+          <h3 className="text-[#f9f4e1] text-xl md:text-2xl font-semibold">{rewardsByType.event}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs md:text-sm">Events</p>
+        </motion.div>
+      </div>
+
       {/* Filters */}
-      <div className="flex items-center gap-4">
-        <div className="relative flex-1 max-w-md">
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+        <div className="relative flex-1 w-full md:max-w-md">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#f9f4e1]/40" />
           <input
             type="text"
             placeholder="Search rewards..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] placeholder-[#f9f4e1]/40 focus:outline-none focus:border-orange-500/50 transition-colors"
+            className="w-full pl-10 pr-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] placeholder-[#f9f4e1]/40 focus:outline-none focus:border-orange-500/50 transition-colors text-sm"
           />
         </div>
         
-        <div className="flex gap-2">
-          {['all', 'pending', 'sent', 'failed'].map((status) => (
+        <div className="flex gap-2 flex-wrap">
+          {['all', 'welcome', 'message', 'role', 'event'].map((eventType) => (
             <button
-              key={status}
-              onClick={() => setStatusFilter(status as any)}
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors capitalize ${
-                statusFilter === status
+              key={eventType}
+              onClick={() => setEventFilter(eventType as any)}
+              className={`px-3 py-1 rounded-lg text-xs md:text-sm font-medium transition-colors capitalize ${
+                eventFilter === eventType
                   ? 'bg-orange-500 text-white'
                   : 'bg-[#0a0e1a] text-[#f9f4e1]/70 hover:text-[#f9f4e1]'
               }`}
             >
-              {status}
-            </button>
-          ))}
-        </div>
-        
-        <div className="flex gap-2">
-          {['all', 'fan', 'freelancer'].map((type) => (
-            <button
-              key={type}
-              onClick={() => setTypeFilter(type as any)}
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors capitalize ${
-                typeFilter === type
-                  ? 'bg-orange-500 text-white'
-                  : 'bg-[#0a0e1a] text-[#f9f4e1]/70 hover:text-[#f9f4e1]'
-              }`}
-            >
-              {type}
+              {eventType}
             </button>
           ))}
         </div>
@@ -247,43 +223,32 @@ export function RewardsPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+        className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
       >
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="font-lora text-[#f9f4e1] text-xl font-semibold">Recent Rewards</h2>
-          <span className="text-[#f9f4e1]/60 text-sm">{filteredRewards.length} rewards</span>
+        <div className="flex items-center justify-between mb-4 md:mb-6">
+          <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold">Recent Automatic Rewards</h2>
+          <span className="text-[#f9f4e1]/60 text-xs md:text-sm">{filteredRewards.length} rewards</span>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 md:space-y-4">
           {filteredRewards.map((reward, index) => (
             <motion.div
               key={reward.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center justify-between p-4 bg-[#0a0e1a] rounded-lg border border-[#f9f4e1]/5 hover:border-[#f9f4e1]/10 transition-all duration-200"
+              className="flex items-center justify-between p-3 md:p-4 bg-[#0a0e1a] rounded-lg border border-[#f9f4e1]/5 hover:border-[#f9f4e1]/10 transition-all duration-200"
             >
-              <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                  reward.recipientType === 'fan' ? 'bg-purple-500/20' : 'bg-amber-500/20'
-                }`}>
-                  {reward.recipientType === 'fan' ? (
-                    <Users className="w-5 h-5 text-purple-500" />
-                  ) : (
-                    <Briefcase className="w-5 h-5 text-amber-500" />
-                  )}
+              <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+                <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-[#f9f4e1]/10 flex items-center justify-center flex-shrink-0">
+                  {getEventIcon(reward.eventType)}
                 </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <p className="text-[#f9f4e1] font-medium">{reward.recipient}</p>
-                    <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                      reward.recipientType === 'fan' ? 'bg-purple-500/20 text-purple-400' : 'bg-amber-500/20 text-amber-400'
-                    }`}>
-                      {reward.recipientType}
-                    </span>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <p className="text-[#f9f4e1] font-medium text-sm md:text-base truncate">{reward.recipient}</p>
                   </div>
-                  <p className="text-[#f9f4e1]/70 text-sm">{reward.reason}</p>
-                  <div className="flex items-center gap-4 text-xs text-[#f9f4e1]/60 mt-1">
+                  <p className="text-[#f9f4e1]/70 text-xs md:text-sm">{getEventLabel(reward.eventType)}</p>
+                  <div className="flex items-center gap-2 md:gap-4 text-xs text-[#f9f4e1]/60 mt-1 flex-wrap">
                     <span>{formatTimeAgo(reward.timestamp)}</span>
                     <span>•</span>
                     <span>{reward.platform}</span>
@@ -291,169 +256,41 @@ export function RewardsPage() {
                 </div>
               </div>
               
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 md:gap-4 flex-shrink-0">
                 <div className="text-right">
-                  <p className="text-[#f9f4e1] font-semibold">+{reward.amount} {reward.tokenSymbol}</p>
-                  <div className={`px-2 py-0.5 rounded-full text-xs font-medium flex items-center gap-1 ${getStatusColor(reward.status)}`}>
-                    {getStatusIcon(reward.status)}
-                    <span className="capitalize">{reward.status}</span>
+                  <p className="text-[#f9f4e1] font-semibold text-sm md:text-base">+{reward.amount}</p>
+                  <div className="flex items-center gap-1 justify-end">
+                    <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-green-400" />
+                    <span className="text-green-400 text-xs">Sent</span>
                   </div>
-                </div>
-                
-                <div className="flex gap-2">
-                  <button className="p-2 rounded-lg hover:bg-[#f9f4e1]/10 transition-colors">
-                    <Edit className="w-4 h-4 text-[#f9f4e1]/70" />
-                  </button>
-                  <button className="p-2 rounded-lg hover:bg-[#f9f4e1]/10 transition-colors">
-                    <MoreHorizontal className="w-4 h-4 text-[#f9f4e1]/70" />
-                  </button>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
       </motion.div>
-
-      {/* Template Modal */}
-      <AnimatePresence>
-        {showTemplateModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-2xl border border-[#f9f4e1]/10 p-8 max-w-2xl w-full"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="font-lora text-[#f9f4e1] text-xl font-semibold">Reward Templates</h3>
-                <button
-                  onClick={() => setShowTemplateModal(false)}
-                  className="p-2 rounded-lg hover:bg-[#f9f4e1]/10 transition-colors"
-                >
-                  <svg className="w-5 h-5 text-[#f9f4e1]/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-
-              <div className="space-y-4">
-                {templates.map((template) => (
-                  <div
-                    key={template.id}
-                    className="p-4 bg-[#0a0e1a] rounded-lg border border-[#f9f4e1]/10 hover:border-orange-500/50 transition-all duration-200"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="text-[#f9f4e1] font-semibold">{template.name}</h4>
-                        <p className="text-[#f9f4e1]/70 text-sm">{template.reason}</p>
-                        <div className="flex items-center gap-4 text-xs text-[#f9f4e1]/60 mt-1">
-                          <span>{template.amount} tokens</span>
-                          <span>•</span>
-                          <span className="capitalize">{template.recipientType}</span>
-                        </div>
-                      </div>
-                      <button
-                        onClick={() => handleUseTemplate(template)}
-                        className="px-4 py-2 bg-orange-500/20 text-orange-400 rounded-lg text-sm font-medium hover:bg-orange-500/30 transition-colors"
-                      >
-                        Use Template
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex justify-end mt-6">
-                <button
-                  onClick={() => setShowTemplateModal(false)}
-                  className="px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Create Reward Modal */}
-      <AnimatePresence>
-        {showCreateModal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-2xl border border-[#f9f4e1]/10 p-8 max-w-md w-full"
-            >
-              <h3 className="font-lora text-[#f9f4e1] text-xl font-semibold mb-6">Send Reward</h3>
-              
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-[#f9f4e1]/70 text-sm mb-2">Recipient Type</label>
-                  <div className="flex gap-2">
-                    <button className="px-4 py-2 rounded-lg text-sm font-medium bg-purple-500 text-white">
-                      Fan
-                    </button>
-                    <button className="px-4 py-2 rounded-lg text-sm font-medium bg-[#0a0e1a] text-[#f9f4e1]/70 hover:text-[#f9f4e1]">
-                      Freelancer
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-[#f9f4e1]/70 text-sm mb-2">Recipient</label>
-                  <input
-                    type="text"
-                    placeholder="@username"
-                    className="w-full px-3 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[#f9f4e1]/70 text-sm mb-2">Amount</label>
-                  <input
-                    type="number"
-                    placeholder="100"
-                    className="w-full px-3 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[#f9f4e1]/70 text-sm mb-2">Reason</label>
-                  <textarea
-                    placeholder="Why are you rewarding them?"
-                    className="w-full px-3 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded-lg text-[#f9f4e1] focus:outline-none focus:border-orange-500/50"
-                    rows={3}
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-3 mt-6">
-                <button
-                  onClick={() => setShowCreateModal(false)}
-                  className="flex-1 px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors"
-                >
-                  Cancel
-                </button>
-                <button className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200">
-                  Send Reward
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
+  );
+}
+
+export default function RewardsPage() {
+  // Mock user for demo - in production, get from auth context
+  const user = {
+    id: '1',
+    name: 'Sarah Chen',
+    email: 'sarah@example.com',
+    role: 'creator' as const,
+    walletAddress: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6',
+    plan: 'pro' as const
+  };
+
+  const handleLogout = () => {
+    // Handle logout
+  };
+
+  return (
+    <DashboardLayout user={user} onLogout={handleLogout}>
+      <RewardsPageContent />
+    </DashboardLayout>
   );
 }

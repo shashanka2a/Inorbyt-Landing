@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { DashboardLayout } from '@/components/DashboardLayout';
 import { 
   TrendingUp, 
   TrendingDown,
@@ -18,7 +19,6 @@ import {
 interface AnalyticsData {
   totalRewards: number;
   totalFans: number;
-  totalFreelancers: number;
   monthlyGrowth: number;
   engagementRate: number;
   averageReward: number;
@@ -28,24 +28,25 @@ interface AnalyticsData {
   monthlyTrend: { month: string; rewards: number; fans: number }[];
 }
 
-export function AnalyticsPage() {
+function AnalyticsPageContent() {
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData>({
     totalRewards: 1247,
     totalFans: 89,
-    totalFreelancers: 12,
     monthlyGrowth: 23.5,
     engagementRate: 78.2,
     averageReward: 45.6,
-    topPlatform: 'Patreon',
+    topPlatform: 'Discord',
     rewardsByPlatform: [
-      { platform: 'Patreon', amount: 450, percentage: 36.1 },
-      { platform: 'YouTube', amount: 320, percentage: 25.7 },
-      { platform: 'Discord', amount: 280, percentage: 22.5 },
-      { platform: 'Substack', amount: 197, percentage: 15.8 }
+      { platform: 'Discord', amount: 950, percentage: 76.2 },
+      { platform: 'Patreon', amount: 150, percentage: 12.0 },
+      { platform: 'YouTube', amount: 100, percentage: 8.0 },
+      { platform: 'Substack', amount: 47, percentage: 3.8 }
     ],
     rewardsByType: [
-      { type: 'Fan Rewards', amount: 890, percentage: 71.4 },
-      { type: 'Freelancer Payments', amount: 357, percentage: 28.6 }
+      { type: 'Welcome Rewards', amount: 445, percentage: 35.7 },
+      { type: 'Message Activity', amount: 312, percentage: 25.0 },
+      { type: 'Role Assignment', amount: 267, percentage: 21.4 },
+      { type: 'Special Events', amount: 223, percentage: 17.9 }
     ],
     monthlyTrend: [
       { month: 'Jan', rewards: 120, fans: 45 },
@@ -73,7 +74,7 @@ export function AnalyticsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -328,5 +329,27 @@ export function AnalyticsPage() {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+export default function AnalyticsPage() {
+  // Mock user for demo - in production, get from auth context
+  const user = {
+    id: '1',
+    name: 'Sarah Chen',
+    email: 'sarah@example.com',
+    role: 'creator' as const,
+    walletAddress: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6',
+    plan: 'pro' as const
+  };
+
+  const handleLogout = () => {
+    // Handle logout
+  };
+
+  return (
+    <DashboardLayout user={user} onLogout={handleLogout}>
+      <AnalyticsPageContent />
+    </DashboardLayout>
   );
 }

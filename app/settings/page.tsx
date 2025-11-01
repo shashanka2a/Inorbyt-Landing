@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { DashboardLayout } from '@/components/DashboardLayout';
 import { 
   User, 
   Bell, 
@@ -41,7 +42,7 @@ interface SecuritySettings {
   loginAlerts: boolean;
 }
 
-export function SettingsPage() {
+function SettingsPageContent() {
   const [activeTab, setActiveTab] = useState<'profile' | 'notifications' | 'security' | 'billing' | 'appearance'>('profile');
   
   const [userSettings, setUserSettings] = useState<UserSettings>({
@@ -518,5 +519,27 @@ export function SettingsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SettingsPage() {
+  // Mock user for demo - in production, get from auth context
+  const user = {
+    id: '1',
+    name: 'Sarah Chen',
+    email: 'sarah@example.com',
+    role: 'creator' as const,
+    walletAddress: '0x742d35Cc6634C0532925a3b8D4C9db96C4b4d8b6',
+    plan: 'pro' as const
+  };
+
+  const handleLogout = () => {
+    // Handle logout
+  };
+
+  return (
+    <DashboardLayout user={user} onLogout={handleLogout}>
+      <SettingsPageContent />
+    </DashboardLayout>
   );
 }
