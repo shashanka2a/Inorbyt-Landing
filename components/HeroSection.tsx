@@ -3,6 +3,7 @@
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
+import Link from 'next/link';
 
 export function HeroSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -188,18 +189,20 @@ export function HeroSection() {
             />
           </motion.button>
 
-          <motion.button
-            whileHover={{ 
-              scale: 1.05,
-              backgroundColor: 'rgba(249, 244, 225, 0.1)',
-              borderColor: 'rgba(249, 244, 225, 1)'
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 rounded-full border-2 border-[#f9f4e1]/50 text-[#f9f4e1] transition-all duration-300 backdrop-blur-sm"
-            style={{ fontSize: '18px', fontWeight: 600 }}
-          >
-            View Demo
-          </motion.button>
+          <Link href="/dashboard">
+            <motion.button
+              whileHover={{ 
+                scale: 1.05,
+                backgroundColor: 'rgba(249, 244, 225, 0.1)',
+                borderColor: 'rgba(249, 244, 225, 1)'
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 rounded-full border-2 border-[#f9f4e1]/50 text-[#f9f4e1] transition-all duration-300 backdrop-blur-sm"
+              style={{ fontSize: '18px', fontWeight: 600 }}
+            >
+              View Demo
+            </motion.button>
+          </Link>
         </motion.div>
 
         {/* Stats preview */}

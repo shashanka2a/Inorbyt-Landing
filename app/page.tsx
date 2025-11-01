@@ -23,8 +23,8 @@ export default function Home() {
             Experience the Full Platform
           </h2>
           <p className="text-[#f9f4e1]/70 mb-8 max-w-2xl mx-auto">
-            See how creators, fans, and freelancers interact in our comprehensive dashboard. 
-            Complete with onboarding flows, reward management, and real-time analytics.
+            Experience the complete MVP flow: Connect Discord, configure automatic rewards, create perks, and see how fans join and earn tokens. 
+            Try the creator onboarding, fan join flow, and dashboards.
           </p>
           <Link 
             href="/dashboard"
