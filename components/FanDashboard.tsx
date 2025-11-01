@@ -148,7 +148,7 @@ export function FanDashboard() {
   };
 
   return (
-    <div className="space-y-4 md:space-y-6 p-4 md:p-0">
+    <div className="space-y-4 md:space-y-6">
       {/* Header */}
       <div>
         <h1 className="font-lora text-[#f9f4e1] text-2xl md:text-3xl font-semibold">Fan Dashboard</h1>
@@ -284,9 +284,13 @@ export function FanDashboard() {
       >
         <div className="flex items-center justify-between mb-4 md:mb-6">
           <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold">Recent Automatic Rewards</h2>
-          <button className="text-orange-500 hover:text-orange-400 text-xs md:text-sm font-medium">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-orange-500 hover:text-orange-400 text-xs md:text-sm font-medium transition-colors"
+          >
             View All
-          </button>
+          </motion.button>
         </div>
 
         <div className="space-y-3 md:space-y-4">

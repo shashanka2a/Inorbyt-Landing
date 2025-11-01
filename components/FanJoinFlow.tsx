@@ -21,23 +21,33 @@ export function FanJoinFlow({ creatorSlug = 'sarah-chen', onComplete }: FanJoinF
   const [discordConnected, setDiscordConnected] = useState(false);
   const [welcomeReward, setWelcomeReward] = useState(10);
   const [walletCreated, setWalletCreated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleConnectDiscord = () => {
+    setIsLoading(true);
     setDiscordConnected(true);
     // Mock wallet creation
     setTimeout(() => {
       setWalletCreated(true);
+      setIsLoading(false);
       setTimeout(() => {
         setCurrentStep('welcome');
-      }, 1000);
+      }, 300);
     }, 1500);
   };
 
   const handleContinue = () => {
+    setIsLoading(true);
     if (currentStep === 'welcome') {
-      setCurrentStep('complete');
+      setTimeout(() => {
+        setIsLoading(false);
+        setCurrentStep('complete');
+      }, 500);
     } else if (currentStep === 'complete' && onComplete) {
-      onComplete();
+      setTimeout(() => {
+        setIsLoading(false);
+        onComplete();
+      }, 500);
     }
   };
 
@@ -93,15 +103,21 @@ export function FanJoinFlow({ creatorSlug = 'sarah-chen', onComplete }: FanJoinF
 
               <motion.button
                 onClick={handleConnectDiscord}
-                disabled={discordConnected}
+                disabled={discordConnected || isLoading}
+                whileHover={!isLoading && !discordConnected ? { scale: 1.02 } : {}}
+                whileTap={!isLoading && !discordConnected ? { scale: 0.98 } : {}}
                 className="w-full px-6 py-4 bg-[#5865F2] text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#4752C4] transition-all duration-200 flex items-center justify-center gap-2"
               >
-                {discordConnected ? (
+                {isLoading ? (
                   <>
-                    <CheckCircle className="w-5 h-5" />
-                    Connecting...
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    />
+                    <span>Connecting...</span>
                   </>
-                ) : walletCreated ? (
+                ) : discordConnected && walletCreated ? (
                   <>
                     <CheckCircle className="w-5 h-5" />
                     Connected!
@@ -177,13 +193,27 @@ export function FanJoinFlow({ creatorSlug = 'sarah-chen', onComplete }: FanJoinF
               </div>
 
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={!isLoading ? { scale: 1.02 } : {}}
+                whileTap={!isLoading ? { scale: 0.98 } : {}}
                 onClick={handleContinue}
-                className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 flex items-center justify-center gap-2"
+                disabled={isLoading}
+                className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70"
               >
-                Continue to Dashboard
-                <ArrowRight className="w-5 h-5" />
+                {isLoading ? (
+                  <>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    />
+                    <span>Loading...</span>
+                  </>
+                ) : (
+                  <>
+                    Continue to Dashboard
+                    <ArrowRight className="w-5 h-5" />
+                  </>
+                )}
               </motion.button>
             </motion.div>
           )}
@@ -207,18 +237,32 @@ export function FanJoinFlow({ creatorSlug = 'sarah-chen', onComplete }: FanJoinF
               </p>
               
               <div className="flex gap-3">
-                <button
+                <motion.button
                   onClick={handleContinue}
-                  className="flex-1 px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors"
+                  disabled={isLoading}
+                  whileHover={!isLoading ? { scale: 1.02 } : {}}
+                  whileTap={!isLoading ? { scale: 0.98 } : {}}
+                  className="flex-1 px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors disabled:opacity-50"
                 >
                   View Dashboard
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={handleContinue}
-                  className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+                  disabled={isLoading}
+                  whileHover={!isLoading ? { scale: 1.02 } : {}}
+                  whileTap={!isLoading ? { scale: 0.98 } : {}}
+                  className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 disabled:opacity-70"
                 >
-                  Explore More
-                </button>
+                  {isLoading ? (
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mx-auto"
+                    />
+                  ) : (
+                    'Explore More'
+                  )}
+                </motion.button>
               </div>
             </motion.div>
           )}

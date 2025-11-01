@@ -72,6 +72,7 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
     eventReward: 15
   });
   const [perksCreated, setPerksCreated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleStepComplete = (stepId: string) => {
     setSteps(prev => prev.map(step => 
@@ -86,12 +87,16 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
   };
 
   const handleConnectDiscord = () => {
+    setIsLoading(true);
     // Mock Discord OAuth connection
     setTimeout(() => {
       setDiscordConnected(true);
       // Auto-generate join link
       setJoinLink('https://inorbyt.io/c/sarah-chen');
-      handleStepComplete('connect-discord');
+      setIsLoading(false);
+      setTimeout(() => {
+        handleStepComplete('connect-discord');
+      }, 300);
     }, 2000);
   };
 
@@ -102,17 +107,25 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
   };
 
   const handleSaveRewardRules = () => {
+    setIsLoading(true);
     // Mock save
     setTimeout(() => {
-      handleStepComplete('configure-rewards');
+      setIsLoading(false);
+      setTimeout(() => {
+        handleStepComplete('configure-rewards');
+      }, 300);
     }, 1000);
   };
 
   const handleCreatePerks = () => {
+    setIsLoading(true);
     // Mock perk creation
     setTimeout(() => {
       setPerksCreated(true);
-      handleStepComplete('create-perks');
+      setIsLoading(false);
+      setTimeout(() => {
+        handleStepComplete('create-perks');
+      }, 300);
     }, 1500);
   };
 
@@ -194,10 +207,21 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
                 
                 <motion.button
                   onClick={handleConnectDiscord}
-                  disabled={discordConnected}
-                  className="w-full px-6 py-3 bg-[#5865F2] text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#4752C4] transition-all duration-200 flex items-center justify-center gap-2"
+                  disabled={discordConnected || isLoading}
+                  whileHover={!isLoading && !discordConnected ? { scale: 1.02 } : {}}
+                  whileTap={!isLoading && !discordConnected ? { scale: 0.98 } : {}}
+                  className="w-full px-6 py-3 bg-[#5865F2] text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#4752C4] transition-all duration-200 flex items-center justify-center gap-2 relative overflow-hidden"
                 >
-                  {discordConnected ? (
+                  {isLoading ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      />
+                      <span>Connecting...</span>
+                    </>
+                  ) : discordConnected ? (
                     <>
                       <Check className="w-5 h-5" />
                       Discord Connected
@@ -254,10 +278,30 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
                 </div>
                 
                 <motion.button
-                  onClick={() => handleStepComplete('get-join-link')}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+                  onClick={() => {
+                    setIsLoading(true);
+                    setTimeout(() => {
+                      setIsLoading(false);
+                      handleStepComplete('get-join-link');
+                    }, 500);
+                  }}
+                  disabled={isLoading}
+                  whileHover={!isLoading ? { scale: 1.02 } : {}}
+                  whileTap={!isLoading ? { scale: 0.98 } : {}}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70"
                 >
-                  Continue
+                  {isLoading ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      />
+                      <span>Loading...</span>
+                    </>
+                  ) : (
+                    'Continue'
+                  )}
                 </motion.button>
               </motion.div>
             )}
@@ -345,9 +389,23 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
                 
                 <motion.button
                   onClick={handleSaveRewardRules}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+                  disabled={isLoading}
+                  whileHover={!isLoading ? { scale: 1.02 } : {}}
+                  whileTap={!isLoading ? { scale: 0.98 } : {}}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70"
                 >
-                  Save Reward Rules
+                  {isLoading ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      />
+                      <span>Saving...</span>
+                    </>
+                  ) : (
+                    'Save Reward Rules'
+                  )}
                 </motion.button>
               </motion.div>
             )}
@@ -405,14 +463,25 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
                 
                 <motion.button
                   onClick={handleCreatePerks}
-                  disabled={perksCreated}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+                  disabled={perksCreated || isLoading}
+                  whileHover={!isLoading && !perksCreated ? { scale: 1.02 } : {}}
+                  whileTap={!isLoading && !perksCreated ? { scale: 0.98 } : {}}
+                  className="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-orange-600 hover:to-orange-700 transition-all duration-200 flex items-center justify-center gap-2"
                 >
-                  {perksCreated ? (
-                    <div className="flex items-center justify-center gap-2">
+                  {isLoading ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                      />
+                      <span>Creating...</span>
+                    </>
+                  ) : perksCreated ? (
+                    <>
                       <Check className="w-5 h-5" />
                       Perk Created!
-                    </div>
+                    </>
                   ) : (
                     'Create Perk'
                   )}
