@@ -151,41 +151,43 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.9 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0"
         >
-          <motion.button
-            whileHover={{ 
-              scale: 1.05,
-              boxShadow: '0 20px 40px rgba(249, 115, 22, 0.4), 0 0 60px rgba(249, 115, 22, 0.2)'
-            }}
-            whileTap={{ scale: 0.95 }}
-            className="relative px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group shadow-xl shadow-orange-500/30 w-full sm:w-auto"
-            style={{ fontSize: '16px', fontWeight: 600 }}
-          >
-            <motion.span className="relative z-10 flex items-center gap-2">
-              Join Early Access
-              <motion.span
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                →
-              </motion.span>
-            </motion.span>
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            {/* Shimmer effect */}
-            <motion.div
-              className="absolute inset-0 -translate-x-full"
-              animate={{ translateX: ['100%', '-100%'] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              style={{
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-                width: '50%'
+          <Link href="/dashboard">
+            <motion.button
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: '0 20px 40px rgba(249, 115, 22, 0.4), 0 0 60px rgba(249, 115, 22, 0.2)'
               }}
-            />
-          </motion.button>
+              whileTap={{ scale: 0.95 }}
+              className="relative px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group shadow-xl shadow-orange-500/30 w-full sm:w-auto"
+              style={{ fontSize: '16px', fontWeight: 600 }}
+            >
+              <motion.span className="relative z-10 flex items-center gap-2">
+                Join Early Access
+                <motion.span
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  →
+                </motion.span>
+              </motion.span>
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              />
+              {/* Shimmer effect */}
+              <motion.div
+                className="absolute inset-0 -translate-x-full"
+                animate={{ translateX: ['100%', '-100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                style={{
+                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+                  width: '50%'
+                }}
+              />
+            </motion.button>
+          </Link>
 
           <Link href="/dashboard">
             <motion.button

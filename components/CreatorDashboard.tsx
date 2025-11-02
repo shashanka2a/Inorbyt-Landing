@@ -169,20 +169,20 @@ export function CreatorDashboard() {
 
         {/* Discord Status & Join Link */}
         <div className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                 discordConnected ? 'bg-green-500/20' : 'bg-[#f9f4e1]/10'
               }`}>
-                <ExternalLink className={`w-5 h-5 ${discordConnected ? 'text-green-400' : 'text-[#f9f4e1]/70'}`} />
+                <ExternalLink className={`w-5 h-5 md:w-6 md:h-6 ${discordConnected ? 'text-green-400' : 'text-[#f9f4e1]/70'}`} />
               </div>
-              <div>
-                <p className="text-[#f9f4e1] font-medium">Discord Server</p>
-                <p className="text-[#f9f4e1]/60 text-sm flex items-center gap-2">
+              <div className="min-w-0">
+                <p className="text-[#f9f4e1] font-medium text-sm md:text-base">Discord Server</p>
+                <p className="text-[#f9f4e1]/60 text-xs md:text-sm flex items-center gap-2">
                   {discordConnected ? (
                     <>
-                      <CheckCircle className="w-3 h-3 text-green-400" />
-                      Connected
+                      <CheckCircle className="w-3 h-3 text-green-400 flex-shrink-0" />
+                      <span>Connected</span>
                     </>
                   ) : (
                     'Not connected'
@@ -190,24 +190,25 @@ export function CreatorDashboard() {
                 </p>
               </div>
             </div>
-            <div className="flex-1 md:flex-initial flex items-center gap-2 max-w-full md:max-w-md">
-              <div className="flex-1 flex items-center gap-2 p-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded-lg">
+            <div className="flex items-center gap-2 min-w-0 flex-1 lg:flex-initial lg:max-w-md">
+              <div className="flex-1 flex items-center gap-2 p-2 md:p-3 bg-[#0a0e1a] border border-[#f9f4e1]/10 rounded-lg min-w-0">
                 <LinkIcon className="w-4 h-4 text-[#f9f4e1]/60 flex-shrink-0" />
                 <input
                   type="text"
                   value={joinLink}
                   readOnly
-                  className="flex-1 bg-transparent text-[#f9f4e1] text-sm focus:outline-none truncate"
+                  className="flex-1 bg-transparent text-[#f9f4e1] text-xs md:text-sm focus:outline-none truncate min-w-0"
                 />
               </div>
               <button
                 onClick={handleCopyJoinLink}
-                className="px-3 py-2 bg-[#f9f4e1]/10 hover:bg-[#f9f4e1]/20 rounded-lg transition-colors flex-shrink-0"
+                className="px-3 py-2 md:px-4 md:py-2.5 bg-[#f9f4e1]/10 hover:bg-[#f9f4e1]/20 rounded-lg transition-colors flex-shrink-0"
+                aria-label="Copy join link"
               >
                 {joinLinkCopied ? (
-                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
                 ) : (
-                  <Copy className="w-4 h-4 text-[#f9f4e1]/70" />
+                  <Copy className="w-4 h-4 md:w-5 md:h-5 text-[#f9f4e1]/70" />
                 )}
               </button>
             </div>
@@ -216,7 +217,7 @@ export function CreatorDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -367,10 +368,10 @@ export function CreatorDashboard() {
                   <div className="flex-1 h-1.5 bg-[#f9f4e1]/10 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-gradient-to-r from-orange-500 to-orange-600"
-                      style={{ width: `${Math.min((perk.unlockedCount / stats.activeFans) * 100, 100)}%` }}
+                      style={{ width: `${Math.min((perk.unlockedCount / perk.threshold) * 100, 100)}%` }}
                     />
                   </div>
-                  <span className="text-[#f9f4e1]/60 text-xs">{perk.threshold} tokens</span>
+                  <span className="text-[#f9f4e1]/60 text-xs whitespace-nowrap">{perk.threshold} tokens</span>
                 </div>
               </div>
             ))}

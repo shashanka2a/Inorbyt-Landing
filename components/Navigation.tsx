@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -141,27 +142,29 @@ export function Navigation() {
           </div>
 
           <div className="flex items-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(249, 115, 22, 0.4)' }}
-              whileTap={{ scale: 0.95 }}
-              className="hidden sm:block relative px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group"
-              style={{ fontSize: '15px', fontWeight: 600 }}
-            >
-              <span className="relative z-10">Get Early Access</span>
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              />
-              {/* Shine effect */}
-              <motion.div
-                className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
-                style={{
-                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
-                }}
-              />
-            </motion.button>
+            <Link href="/dashboard">
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(249, 115, 22, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+                className="hidden sm:block relative px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group"
+                style={{ fontSize: '15px', fontWeight: 600 }}
+              >
+                <span className="relative z-10">Get Early Access</span>
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                {/* Shine effect */}
+                <motion.div
+                  className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
+                  style={{
+                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)'
+                  }}
+                />
+              </motion.button>
+            </Link>
 
             {/* Mobile menu button */}
             <motion.button
@@ -260,23 +263,24 @@ export function Navigation() {
                 
                 {/* Mobile CTA Button */}
                 <div className="py-6 border-t border-[#f9f4e1]/10">
-                  <motion.button
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold text-center relative overflow-hidden group"
-                  >
-                    <span className="relative z-10">Get Early Access</span>
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.button>
+                  <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)}>
+                    <motion.button
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full px-6 py-3 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold text-center relative overflow-hidden group"
+                    >
+                      <span className="relative z-10">Get Early Access</span>
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
