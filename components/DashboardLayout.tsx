@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import { 
   LayoutDashboard, 
   Users, 
@@ -47,6 +48,7 @@ const fanNavItems = [
 ];
 
 export function DashboardLayout({ children, user, onLogout }: DashboardLayoutProps) {
+  const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifications, setNotifications] = useState(3);
   const [searchQuery, setSearchQuery] = useState('');
@@ -71,7 +73,7 @@ export function DashboardLayout({ children, user, onLogout }: DashboardLayoutPro
         initial={{ x: -280 }}
         animate={{ x: sidebarOpen ? 0 : -280 }}
         transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-        className="fixed inset-y-0 left-0 z-50 w-64 md:w-70 bg-[#151922] border-r border-[#f9f4e1]/10 lg:relative lg:translate-x-0 lg:flex lg:flex-col"
+        className="fixed inset-y-0 left-0 z-50 w-64 bg-[#151922] border-r border-[#f9f4e1]/10 lg:relative lg:translate-x-0 lg:flex lg:flex-col"
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
@@ -127,13 +129,21 @@ export function DashboardLayout({ children, user, onLogout }: DashboardLayoutPro
           <nav className="flex-1 p-3 md:p-4 space-y-1 md:space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;
+              // Handle /dashboard as active for dashboard nav item
+              const isActive = pathname === item.href || (item.href === '/dashboard' && pathname === '/dashboard');
               return (
                 <Link
                   key={item.id}
                   href={item.href}
-                  className="flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 rounded-lg text-[#f9f4e1]/70 hover:text-[#f9f4e1] hover:bg-[#f9f4e1]/5 transition-all duration-200 group"
+                  className={`flex items-center gap-2 md:gap-3 px-2 md:px-3 py-2 rounded-lg transition-all duration-200 group ${
+                    isActive
+                      ? 'bg-orange-500/20 text-orange-400 border border-orange-500/30'
+                      : 'text-[#f9f4e1]/70 hover:text-[#f9f4e1] hover:bg-[#f9f4e1]/5'
+                  }`}
                 >
-                  <Icon className="w-4 h-4 md:w-5 md:h-5 group-hover:text-orange-400 transition-colors flex-shrink-0" />
+                  <Icon className={`w-4 h-4 md:w-5 md:h-5 flex-shrink-0 transition-colors ${
+                    isActive ? 'text-orange-400' : 'group-hover:text-orange-400'
+                  }`} />
                   <span className="font-medium text-sm md:text-base">{item.label}</span>
                 </Link>
               );
@@ -156,14 +166,14 @@ export function DashboardLayout({ children, user, onLogout }: DashboardLayoutPro
       {/* Main Content */}
       <div className="flex-1 flex flex-col lg:ml-0">
         {/* Top Bar */}
-        <header className="bg-[#151922] border-b border-[#f9f4e1]/10 px-4 md:px-6 py-3 md:py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 md:gap-4">
+        <header className="bg-[#151922] border-b border-[#f9f4e1]/10 px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-4 flex-1 min-w-0">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-2 rounded-lg hover:bg-[#f9f4e1]/10 transition-colors"
+                className="lg:hidden p-1.5 sm:p-2 rounded-lg hover:bg-[#f9f4e1]/10 transition-colors flex-shrink-0"
               >
-                <svg className="w-4 h-4 md:w-5 md:h-5 text-[#f9f4e1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#f9f4e1]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
@@ -181,12 +191,12 @@ export function DashboardLayout({ children, user, onLogout }: DashboardLayoutPro
               </div>
             </div>
 
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-1.5 sm:gap-2 md:gap-4 flex-shrink-0">
               {/* Notifications */}
-              <button className="relative p-2 rounded-lg hover:bg-[#f9f4e1]/10 transition-colors">
-                <Bell className="w-4 h-4 md:w-5 md:h-5 text-[#f9f4e1]/70" />
+              <button className="relative p-1.5 sm:p-2 rounded-lg hover:bg-[#f9f4e1]/10 transition-colors">
+                <Bell className="w-4 h-4 sm:w-5 sm:h-5 text-[#f9f4e1]/70" />
                 {notifications > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 md:w-5 md:h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 sm:w-5 sm:h-5 bg-orange-500 text-white text-[10px] sm:text-xs rounded-full flex items-center justify-center">
                     {notifications}
                   </span>
                 )}
@@ -194,9 +204,9 @@ export function DashboardLayout({ children, user, onLogout }: DashboardLayoutPro
 
               {/* Wallet Status */}
               {user.walletAddress && (
-                <div className="hidden sm:flex items-center gap-2 px-2 md:px-3 py-1.5 md:py-2 bg-green-500/10 border border-green-500/20 rounded-lg">
-                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-green-400 text-xs md:text-sm font-medium">Connected to Base</span>
+                <div className="hidden sm:flex items-center gap-1.5 sm:gap-2 px-1.5 sm:px-2 md:px-3 py-1 sm:py-1.5 md:py-2 bg-green-500/10 border border-green-500/20 rounded-lg">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-green-400 text-[10px] sm:text-xs md:text-sm font-medium hidden sm:inline">Connected to Base</span>
                 </div>
               )}
             </div>
@@ -204,11 +214,11 @@ export function DashboardLayout({ children, user, onLogout }: DashboardLayoutPro
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 p-4 md:p-6 lg:p-8">
-          <div className="max-w-7xl mx-auto w-full">
+        <main className="flex-1 overflow-auto">
+          <div className="max-w-7xl mx-auto w-full px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4 md:py-6 lg:py-8">
             <AnimatePresence mode="wait">
               <motion.div
-                key={user.role}
+                key={pathname}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}

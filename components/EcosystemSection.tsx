@@ -26,7 +26,7 @@ const creatorExamples = [
 
 export function EcosystemSection() {
   return (
-    <section id="discover-reward-ecosystem" className="py-24 px-6 bg-[#0a0e1a] scroll-mt-20">
+    <section id="discover-reward-ecosystem" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[#0a0e1a] scroll-mt-20">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <motion.div
@@ -34,18 +34,18 @@ export function EcosystemSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="font-lora text-[#f9f4e1] leading-[1.15] mb-6" style={{ fontSize: '48px', fontWeight: 700 }}>
+          <h2 className="font-lora text-[#f9f4e1] leading-[1.15] mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-[48px]" style={{ fontWeight: 700 }}>
             🪙 Discover the Reward Ecosystem
           </h2>
-          <p className="text-[#f9f4e1]/70 max-w-2xl mx-auto" style={{ fontSize: '20px' }}>
+          <p className="text-[#f9f4e1]/70 max-w-2xl mx-auto text-base sm:text-lg md:text-[20px] px-4 sm:px-0">
             Explore how creators are using InOrbyt to connect their communities.
           </p>
         </motion.div>
 
         {/* Creator Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {creatorExamples.map((example, index) => (
             <motion.div
               key={index}
@@ -58,28 +58,28 @@ export function EcosystemSection() {
                 scale: 1.02,
                 boxShadow: '0 20px 60px rgba(249, 115, 22, 0.15)'
               }}
-              className="bg-[#151922] p-8 rounded-2xl border border-[#f9f4e1]/10 hover:border-[#f9f4e1]/20 transition-all duration-300 group"
+              className="bg-[#151922] p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-[#f9f4e1]/10 hover:border-[#f9f4e1]/20 transition-all duration-300 group"
             >
               {/* Creator Avatar */}
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                 <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center">
                   <span className="text-white font-bold text-lg">{example.avatar}</span>
                 </div>
                 <div>
-                  <h3 className="text-[#f9f4e1] font-semibold" style={{ fontSize: '18px' }}>
+                  <h3 className="text-[#f9f4e1] font-semibold text-base sm:text-lg">
                     {example.creator}
                   </h3>
-                  <p className="text-[#f9f4e1]/60 text-sm">Creator</p>
+                  <p className="text-[#f9f4e1]/60 text-xs sm:text-sm">Creator</p>
                 </div>
               </div>
 
               {/* Reward Example */}
-              <div className="mb-6">
-                <p className="text-[#f9f4e1]/80 mb-4" style={{ fontSize: '15px' }}>
+              <div className="mb-4 sm:mb-6">
+                <p className="text-[#f9f4e1]/80 mb-3 sm:mb-4 text-sm sm:text-[15px]">
                   {example.reward}
                 </p>
-                <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-4">
-                  <p className="text-[#f9f4e1]/90 font-medium" style={{ fontSize: '14px' }}>
+                <div className="bg-orange-500/10 border border-orange-500/20 rounded-lg p-3 sm:p-4">
+                  <p className="text-[#f9f4e1]/90 font-medium text-xs sm:text-sm md:text-[14px]">
                     {example.description}
                   </p>
                 </div>
@@ -109,7 +109,7 @@ export function EcosystemSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-center mt-16"
+          className="text-center mt-8 sm:mt-12 md:mt-16"
         >
           <motion.button
             whileHover={{ 
@@ -117,8 +117,8 @@ export function EcosystemSection() {
               boxShadow: '0 20px 40px rgba(249, 115, 22, 0.4)'
             }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group relative"
-            style={{ fontSize: '18px', fontWeight: 600 }}
+            className="px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group relative text-sm sm:text-base md:text-[18px]"
+            style={{ fontWeight: 600 }}
           >
             <motion.span className="relative z-10 flex items-center gap-2">
               Start Your Reward Ecosystem

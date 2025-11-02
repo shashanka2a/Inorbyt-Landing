@@ -159,7 +159,7 @@ export function CreatorDashboard() {
   };
 
   return (
-    <div className="space-y-4 md:space-y-6">
+    <div className="w-full space-y-4 md:space-y-6">
       {/* Header */}
       <div className="flex flex-col gap-4">
         <div>

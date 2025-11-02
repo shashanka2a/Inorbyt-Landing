@@ -17,21 +17,21 @@ export default function Home() {
       <HeroSection />
       
       {/* Dashboard Preview */}
-      <div className="py-16 bg-gradient-to-br from-[#151922] to-[#0f1218] border-y border-[#f9f4e1]/10">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="font-lora text-[#f9f4e1] text-3xl font-semibold mb-4">
+      <div className="py-12 sm:py-14 md:py-16 bg-gradient-to-br from-[#151922] to-[#0f1218] border-y border-[#f9f4e1]/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <h2 className="font-lora text-[#f9f4e1] text-2xl sm:text-3xl font-semibold mb-3 sm:mb-4">
             Experience the Full Platform
           </h2>
-          <p className="text-[#f9f4e1]/70 mb-8 max-w-2xl mx-auto">
+          <p className="text-[#f9f4e1]/70 mb-6 sm:mb-8 max-w-2xl mx-auto text-sm sm:text-base">
             Experience the complete MVP flow: Connect Discord, configure automatic rewards, create perks, and see how fans join and earn tokens. 
             Try the creator onboarding, fan join flow, and dashboards.
           </p>
           <Link 
             href="/dashboard"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 text-sm sm:text-base"
           >
             View Dashboard Demo
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </Link>

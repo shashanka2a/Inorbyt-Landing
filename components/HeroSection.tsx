@@ -23,22 +23,22 @@ export function HeroSection() {
   const rotateY = useTransform(x, [-300, 300], [-5, 5]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#005257' }}>
-      {/* Enhanced animated gradient glows */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          animate={{
-            opacity: [0.3, 0.6, 0.3],
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[800px] rounded-full"
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24" style={{ backgroundColor: '#005257' }}>
+        {/* Enhanced animated gradient glows */}
+        <div className="absolute inset-0 overflow-hidden">
+          <motion.div
+            animate={{
+              opacity: [0.3, 0.6, 0.3],
+              scale: [1, 1.2, 1],
+              x: [0, 50, 0],
+              y: [0, 30, 0],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+            className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] rounded-full"
           style={{
             background: 'radial-gradient(circle, rgba(249, 244, 225, 0.15) 0%, transparent 70%)',
             filter: 'blur(60px)'
@@ -56,7 +56,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full"
+            className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[600px] md:h-[600px] rounded-full"
           style={{
             background: 'radial-gradient(circle, rgba(255, 165, 0, 0.1) 0%, transparent 70%)',
             filter: 'blur(80px)'
@@ -76,7 +76,7 @@ export function HeroSection() {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute top-1/2 left-1/4 w-[400px] h-[400px] rounded-full"
+          className="absolute top-1/2 left-1/4 w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] md:w-[400px] md:h-[400px] rounded-full"
           style={{
             background: 'radial-gradient(circle, rgba(249, 115, 22, 0.15) 0%, transparent 70%)',
             filter: 'blur(50px)'
@@ -84,14 +84,13 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 text-center">
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-lora text-[#f9f4e1] mb-6 leading-[1.15] relative"
+          className="font-lora text-[#f9f4e1] mb-4 sm:mb-6 leading-[1.15] relative text-3xl sm:text-4xl md:text-5xl lg:text-[56px]"
           style={{ 
-            fontSize: '56px', 
             fontWeight: 700,
             textShadow: '0 0 40px rgba(249, 244, 225, 0.3)'
           }}
@@ -140,8 +139,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
-          className="font-dm-sans text-[#f9f4e1]/80 mb-12 max-w-3xl mx-auto"
-          style={{ fontSize: '22px' }}
+          className="font-dm-sans text-[#f9f4e1]/80 mb-8 sm:mb-12 max-w-3xl mx-auto text-base sm:text-lg md:text-xl lg:text-[22px] px-4 sm:px-0"
         >
           InOrbyt turns your existing platforms (Patreon, Substack, YouTube, and Discord) into a connected reward ecosystem.
           Reward loyalty, celebrate milestones, and give ownership back to your community.
@@ -151,7 +149,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="flex items-center justify-center gap-4 flex-wrap"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0"
         >
           <motion.button
             whileHover={{ 
@@ -159,8 +157,8 @@ export function HeroSection() {
               boxShadow: '0 20px 40px rgba(249, 115, 22, 0.4), 0 0 60px rgba(249, 115, 22, 0.2)'
             }}
             whileTap={{ scale: 0.95 }}
-            className="relative px-8 py-4 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group shadow-xl shadow-orange-500/30"
-            style={{ fontSize: '18px', fontWeight: 600 }}
+            className="relative px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-orange-500 to-orange-600 text-white overflow-hidden group shadow-xl shadow-orange-500/30 w-full sm:w-auto"
+            style={{ fontSize: '16px', fontWeight: 600 }}
           >
             <motion.span className="relative z-10 flex items-center gap-2">
               Join Early Access
@@ -197,8 +195,8 @@ export function HeroSection() {
                 borderColor: 'rgba(249, 244, 225, 1)'
               }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-full border-2 border-[#f9f4e1]/50 text-[#f9f4e1] transition-all duration-300 backdrop-blur-sm"
-              style={{ fontSize: '18px', fontWeight: 600 }}
+              className="px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-[#f9f4e1]/50 text-[#f9f4e1] transition-all duration-300 backdrop-blur-sm w-full sm:w-auto"
+              style={{ fontSize: '16px', fontWeight: 600 }}
             >
               View Demo
             </motion.button>
@@ -210,7 +208,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.1 }}
-          className="mt-20 flex items-center justify-center gap-12 flex-wrap"
+          className="mt-12 sm:mt-16 md:mt-20 flex items-center justify-center gap-6 sm:gap-8 md:gap-12 flex-wrap px-4 sm:px-0"
         >
           {[
             { value: '10K+', label: 'creators connected' },
@@ -225,10 +223,10 @@ export function HeroSection() {
               whileHover={{ scale: 1.1 }}
               className="text-center"
             >
-              <div className="text-[#f9f4e1] mb-1" style={{ fontSize: '32px', fontWeight: 700 }}>
+              <div className="text-[#f9f4e1] mb-1 text-xl sm:text-2xl md:text-[32px]" style={{ fontWeight: 700 }}>
                 {stat.value}
               </div>
-              <div className="text-[#f9f4e1]/60" style={{ fontSize: '14px' }}>
+              <div className="text-[#f9f4e1]/60 text-xs sm:text-sm">
                 {stat.label}
               </div>
             </motion.div>

@@ -44,7 +44,7 @@ const roles = [
 
 export function RolesSection() {
   return (
-    <section id="for-creators-fans-freelancers" className="py-24 px-6 bg-[#0a0e1a] scroll-mt-20">
+    <section id="for-creators-fans-freelancers" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[#0a0e1a] scroll-mt-20">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <motion.div
@@ -52,15 +52,15 @@ export function RolesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="font-lora text-[#f9f4e1] leading-[1.15] mb-6" style={{ fontSize: '48px', fontWeight: 700 }}>
+          <h2 className="font-lora text-[#f9f4e1] leading-[1.15] mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl lg:text-[48px]" style={{ fontWeight: 700 }}>
             One ecosystem, three empowered roles.
           </h2>
         </motion.div>
 
         {/* Role Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {roles.map((role, index) => {
             const Icon = role.icon;
             return (
@@ -75,7 +75,7 @@ export function RolesSection() {
                   scale: 1.03,
                   boxShadow: '0 20px 60px rgba(249, 115, 22, 0.2)'
                 }}
-                className={`relative bg-gradient-to-br ${role.bgColor} p-8 rounded-2xl border border-[#f9f4e1]/10 group overflow-hidden cursor-pointer`}
+                className={`relative bg-gradient-to-br ${role.bgColor} p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-[#f9f4e1]/10 group overflow-hidden cursor-pointer`}
               >
                 {/* Glow effect on hover */}
                 <motion.div 
@@ -88,7 +88,7 @@ export function RolesSection() {
                 <div className="relative z-10">
                   {/* Icon */}
                   <motion.div 
-                    className={`w-16 h-16 bg-gradient-to-br ${role.ctaColor} rounded-2xl flex items-center justify-center mb-6 relative overflow-hidden`}
+                    className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br ${role.ctaColor} rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 relative overflow-hidden`}
                     whileHover={{ 
                       rotate: [0, -10, 10, -10, 0],
                       boxShadow: '0 20px 40px rgba(249, 115, 22, 0.5)'
@@ -106,17 +106,17 @@ export function RolesSection() {
                       whileHover={{ scale: 1.2 }}
                       transition={{ type: "spring", stiffness: 400 }}
                     >
-                      <Icon className="w-8 h-8 text-white relative z-10" />
+                      <Icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white relative z-10" />
                     </motion.div>
                   </motion.div>
 
                   {/* Title */}
-                  <h3 className="text-[#f9f4e1] mb-6 group-hover:text-orange-200 transition-colors duration-300" style={{ fontSize: '24px', fontWeight: 700 }}>
+                  <h3 className="text-[#f9f4e1] mb-3 sm:mb-4 md:mb-6 group-hover:text-orange-200 transition-colors duration-300 text-lg sm:text-xl md:text-2xl lg:text-[24px]" style={{ fontWeight: 700 }}>
                     {role.title}
                   </h3>
 
                   {/* Features */}
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 md:mb-8">
                     {role.features.map((feature, featureIndex) => (
                       <motion.li
                         key={featureIndex}
@@ -124,8 +124,7 @@ export function RolesSection() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: index * 0.2 + featureIndex * 0.1 }}
-                        className="flex items-center gap-3 text-[#f9f4e1]/70 group-hover:text-[#f9f4e1]/90 transition-colors duration-300"
-                        style={{ fontSize: '16px' }}
+                        className="flex items-center gap-2 sm:gap-3 text-[#f9f4e1]/70 group-hover:text-[#f9f4e1]/90 transition-colors duration-300 text-sm sm:text-base"
                       >
                         <div className="w-2 h-2 bg-orange-500 rounded-full flex-shrink-0" />
                         {feature}
@@ -140,8 +139,8 @@ export function RolesSection() {
                       boxShadow: '0 20px 40px rgba(249, 115, 22, 0.4)'
                     }}
                     whileTap={{ scale: 0.95 }}
-                    className={`w-full px-6 py-3 rounded-full bg-gradient-to-r ${role.ctaColor} text-white overflow-hidden group/btn relative`}
-                    style={{ fontSize: '16px', fontWeight: 600 }}
+                    className={`w-full px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-r ${role.ctaColor} text-white overflow-hidden group/btn relative text-sm sm:text-base`}
+                    style={{ fontWeight: 600 }}
                   >
                     <motion.span className="relative z-10 flex items-center justify-center gap-2">
                       {role.ctaText}

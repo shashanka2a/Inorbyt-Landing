@@ -23,21 +23,21 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-24 px-6 bg-[#0a0e1a]">
+    <section id="how-it-works" className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-[#0a0e1a]">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="font-lora text-[#f9f4e1] mb-4" style={{ fontSize: '48px', fontWeight: 700 }}>
+          <h2 className="font-lora text-[#f9f4e1] mb-4 text-2xl sm:text-3xl md:text-4xl lg:text-[48px]" style={{ fontWeight: 700 }}>
             Three Simple Steps to Reward Your Community
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
@@ -52,7 +52,7 @@ export function HowItWorks() {
                   scale: 1.03,
                   boxShadow: '0 20px 60px rgba(249, 115, 22, 0.2)'
                 }}
-                className="relative bg-gradient-to-br from-[#151922] to-[#0f1218] p-8 rounded-2xl border border-[#f9f4e1]/10 group overflow-hidden cursor-pointer"
+                className="relative bg-gradient-to-br from-[#151922] to-[#0f1218] p-4 sm:p-6 md:p-8 rounded-2xl border border-[#f9f4e1]/10 group overflow-hidden cursor-pointer"
               >
                 {/* Glow effect on hover */}
                 <motion.div 
@@ -64,8 +64,8 @@ export function HowItWorks() {
                 
                 {/* Step number with parallax */}
                 <motion.div 
-                  className="absolute top-6 right-6 text-[#f9f4e1]/10 group-hover:text-[#f9f4e1]/20 transition-colors duration-300" 
-                  style={{ fontSize: '72px', fontWeight: 700, lineHeight: 1 }}
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 text-[#f9f4e1]/10 group-hover:text-[#f9f4e1]/20 transition-colors duration-300 text-4xl sm:text-5xl md:text-6xl lg:text-[72px]" 
+                  style={{ fontWeight: 700, lineHeight: 1 }}
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
@@ -107,10 +107,10 @@ export function HowItWorks() {
                     </motion.div>
                   </motion.div>
 
-                  <h3 className="text-[#f9f4e1] mb-3 group-hover:text-orange-200 transition-colors duration-300" style={{ fontSize: '24px', fontWeight: 700 }}>
+                  <h3 className="text-[#f9f4e1] mb-2 sm:mb-3 group-hover:text-orange-200 transition-colors duration-300 text-lg sm:text-xl md:text-2xl lg:text-[24px]" style={{ fontWeight: 700 }}>
                     {step.title}
                   </h3>
-                  <p className="text-[#f9f4e1]/70 group-hover:text-[#f9f4e1]/90 transition-colors duration-300" style={{ fontSize: '16px' }}>
+                  <p className="text-[#f9f4e1]/70 group-hover:text-[#f9f4e1]/90 transition-colors duration-300 text-sm sm:text-base">
                     {step.description}
                   </p>
                 </div>
@@ -135,7 +135,7 @@ export function HowItWorks() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-16"
         >
-          <p className="font-lora text-[#f9f4e1] text-xl" style={{ fontSize: '24px', fontWeight: 500 }}>
+          <p className="font-lora text-[#f9f4e1] text-lg sm:text-xl md:text-[24px]" style={{ fontWeight: 500 }}>
             Your audience, your rules — powered by Base, abstracted by InOrbyt.
           </p>
         </motion.div>

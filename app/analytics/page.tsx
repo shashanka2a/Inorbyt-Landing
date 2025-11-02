@@ -74,19 +74,19 @@ function AnalyticsPageContent() {
   };
 
   return (
-    <div className="space-y-4 md:space-y-6">
+    <div className="w-full space-y-4 md:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="font-lora text-[#f9f4e1] text-3xl font-semibold">Analytics</h1>
-          <p className="text-[#f9f4e1]/70 mt-1">Track your community growth and engagement</p>
+          <h1 className="font-lora text-[#f9f4e1] text-2xl sm:text-3xl font-semibold">Analytics</h1>
+          <p className="text-[#f9f4e1]/70 mt-1 text-sm sm:text-base">Track your community growth and engagement</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           {['7d', '30d', '90d', '1y'].map((timeframe) => (
             <button
               key={timeframe}
               onClick={() => setSelectedTimeframe(timeframe as any)}
-              className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs sm:text-sm font-medium transition-colors ${
                 selectedTimeframe === timeframe
                   ? 'bg-orange-500 text-white'
                   : 'bg-[#0a0e1a] text-[#f9f4e1]/70 hover:text-[#f9f4e1]'
@@ -99,22 +99,22 @@ function AnalyticsPageContent() {
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg sm:rounded-xl border border-[#f9f4e1]/10 p-4 sm:p-6"
         >
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-lg flex items-center justify-center">
-              <Gift className="w-6 h-6 text-orange-500" />
+          <div className="flex items-center justify-between mb-3 sm:mb-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500/20 to-orange-600/20 rounded-lg flex items-center justify-center">
+              <Gift className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
             </div>
             {getGrowthIcon(analyticsData.monthlyGrowth)}
           </div>
-          <h3 className="text-[#f9f4e1] text-2xl font-semibold">{analyticsData.totalRewards.toLocaleString()}</h3>
-          <p className="text-[#f9f4e1]/70 text-sm">Total Rewards</p>
-          <div className={`flex items-center gap-1 text-sm mt-2 ${getGrowthColor(analyticsData.monthlyGrowth)}`}>
+          <h3 className="text-[#f9f4e1] text-xl sm:text-2xl font-semibold">{analyticsData.totalRewards.toLocaleString()}</h3>
+          <p className="text-[#f9f4e1]/70 text-xs sm:text-sm">Total Rewards</p>
+          <div className={`flex items-center gap-1 text-xs sm:text-sm mt-2 ${getGrowthColor(analyticsData.monthlyGrowth)}`}>
             <span>{analyticsData.monthlyGrowth > 0 ? '+' : ''}{analyticsData.monthlyGrowth}%</span>
             <span>vs last month</span>
           </div>
@@ -182,13 +182,13 @@ function AnalyticsPageContent() {
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Monthly Trend Chart */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl border border-[#f9f4e1]/10 p-6"
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg sm:rounded-xl border border-[#f9f4e1]/10 p-4 sm:p-6"
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-lora text-[#f9f4e1] text-xl font-semibold">Monthly Trend</h2>

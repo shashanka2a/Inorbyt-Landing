@@ -82,8 +82,8 @@ export function Navigation() {
           isScrolled ? 'bg-[#0a0e1a]/95 backdrop-blur-xl border-b border-[#f9f4e1]/10 shadow-lg shadow-black/20' : 'bg-transparent'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+          <div className="flex items-center gap-6 sm:gap-12">
             <motion.a 
               href="#"
               whileHover={{ scale: 1.05 }}
@@ -95,7 +95,7 @@ export function Navigation() {
                 alt="InOrbyt" 
                 width={120} 
                 height={40}
-                className="h-8 w-auto"
+                className="h-6 sm:h-8 w-auto"
               />
               <motion.div 
                 className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 origin-left"
@@ -218,9 +218,9 @@ export function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 h-full w-80 bg-[#0a0e1a]/95 backdrop-blur-xl border-l border-[#f9f4e1]/10 z-50 md:hidden"
+              className="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-[#0a0e1a]/95 backdrop-blur-xl border-l border-[#f9f4e1]/10 z-50 md:hidden"
             >
-              <div className="flex flex-col h-full pt-20 px-6">
+              <div className="flex flex-col h-full pt-20 px-4 sm:px-6">
                 {/* Mobile Navigation Links */}
                 <div className="flex-1 space-y-6">
                   {navLinks.map((item, index) => {

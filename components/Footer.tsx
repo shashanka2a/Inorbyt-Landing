@@ -6,9 +6,9 @@ import Image from 'next/image';
 
 export function Footer() {
   return (
-    <footer className="py-16 px-6" style={{ backgroundColor: '#005257' }}>
+    <footer className="py-8 sm:py-12 md:py-16 px-4 sm:px-6" style={{ backgroundColor: '#005257' }}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12 mb-8 sm:mb-12">
           {/* Brand */}
           <div>
             <div className="mb-4">

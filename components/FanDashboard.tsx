@@ -148,7 +148,7 @@ export function FanDashboard() {
   };
 
   return (
-    <div className="space-y-4 md:space-y-6">
+    <div className="w-full space-y-4 md:space-y-6">
       {/* Header */}
       <div>
         <h1 className="font-lora text-[#f9f4e1] text-2xl md:text-3xl font-semibold">Fan Dashboard</h1>

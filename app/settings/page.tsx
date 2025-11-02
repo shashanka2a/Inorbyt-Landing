@@ -105,21 +105,21 @@ function SettingsPageContent() {
   };
 
   const renderProfileTab = () => (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="font-lora text-[#f9f4e1] text-xl font-semibold mb-4">Profile Information</h2>
+        <h2 className="font-lora text-[#f9f4e1] text-lg sm:text-xl font-semibold mb-3 sm:mb-4">Profile Information</h2>
         
         <div className="space-y-4">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center">
-              <span className="text-white font-semibold text-xl">{userSettings.avatar}</span>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+              <span className="text-white font-semibold text-lg sm:text-xl">{userSettings.avatar}</span>
             </div>
-            <div>
-              <button className="px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors">
+            <div className="flex-1 min-w-0">
+              <button className="px-3 sm:px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors text-sm">
                 <Upload className="w-4 h-4 mr-2 inline" />
                 Upload Avatar
               </button>
-              <p className="text-[#f9f4e1]/60 text-sm mt-1">JPG, PNG or GIF. Max size 2MB.</p>
+              <p className="text-[#f9f4e1]/60 text-xs sm:text-sm mt-1">JPG, PNG or GIF. Max size 2MB.</p>
             </div>
           </div>
 
@@ -188,7 +188,7 @@ function SettingsPageContent() {
       <div className="flex justify-end">
         <button
           onClick={handleSaveProfile}
-          className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+          className="flex items-center gap-2 px-4 sm:px-6 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 text-sm sm:text-base w-full sm:w-auto"
         >
           <Save className="w-4 h-4" />
           Save Changes
@@ -417,31 +417,31 @@ function SettingsPageContent() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="w-full space-y-4 sm:space-y-6">
       {/* Header */}
       <div>
-        <h1 className="font-lora text-[#f9f4e1] text-3xl font-semibold">Settings</h1>
-        <p className="text-[#f9f4e1]/70 mt-1">Manage your account preferences and security</p>
+        <h1 className="font-lora text-[#f9f4e1] text-2xl sm:text-3xl font-semibold">Settings</h1>
+        <p className="text-[#f9f4e1]/70 mt-1 text-sm sm:text-base">Manage your account preferences and security</p>
       </div>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col md:flex-row gap-4 md:gap-6">
         {/* Sidebar */}
-        <div className="w-64 flex-shrink-0">
-          <nav className="space-y-2">
+        <div className="w-full md:w-64 flex-shrink-0">
+          <nav className="flex md:flex-col gap-2 overflow-x-auto pb-2 md:pb-0">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-all duration-200 ${
+                  className={`flex items-center gap-2 md:gap-3 px-3 py-2 rounded-lg text-left transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                     activeTab === tab.id
                       ? 'bg-orange-500 text-white'
                       : 'text-[#f9f4e1]/70 hover:text-[#f9f4e1] hover:bg-[#f9f4e1]/5'
                   }`}
                 >
-                  <Icon className="w-5 h-5" />
-                  <span className="font-medium">{tab.label}</span>
+                  <Icon className="w-4 h-4 md:w-5 md:h-5" />
+                  <span className="font-medium text-sm md:text-base">{tab.label}</span>
                 </button>
               );
             })}
@@ -449,7 +449,7 @@ function SettingsPageContent() {
         </div>
 
         {/* Content */}
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <motion.div
             key={activeTab}
             initial={{ opacity: 0, x: 20 }}
@@ -467,8 +467,8 @@ function SettingsPageContent() {
 
       {/* Password Change Modal */}
       {showPasswordForm && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-          <div className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-2xl border border-[#f9f4e1]/10 p-8 max-w-md w-full">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 sm:p-6">
+          <div className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-xl sm:rounded-2xl border border-[#f9f4e1]/10 p-4 sm:p-6 md:p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
             <h3 className="font-lora text-[#f9f4e1] text-xl font-semibold mb-6">Change Password</h3>
             
             <div className="space-y-4">
@@ -501,16 +501,16 @@ function SettingsPageContent() {
               </div>
             </div>
 
-            <div className="flex gap-3 mt-6">
+            <div className="flex flex-col sm:flex-row gap-3 mt-6">
               <button
                 onClick={() => setShowPasswordForm(false)}
-                className="flex-1 px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors"
+                className="flex-1 px-4 py-2 bg-[#0a0e1a] border border-[#f9f4e1]/10 text-[#f9f4e1]/70 rounded-lg hover:text-[#f9f4e1] transition-colors text-sm sm:text-base"
               >
                 Cancel
               </button>
               <button
                 onClick={handleChangePassword}
-                className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200"
+                className="flex-1 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-200 text-sm sm:text-base"
               >
                 Change Password
               </button>
