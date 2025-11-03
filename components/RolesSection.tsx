@@ -16,18 +16,18 @@ const roles = [
     ctaColor: 'from-orange-500 to-orange-600',
     bgColor: 'from-[#151922] to-[#0f1218]'
   },
-  {
-    icon: Heart,
-    title: 'For Fans',
-    features: [
-      'Earn tokens by supporting creators',
-      'Unlock perks, access, and early content',
-      'Participate without wallets or crypto'
-    ],
-    ctaText: 'Join Community',
-    ctaColor: 'from-purple-500 to-purple-600',
-    bgColor: 'from-[#151922] to-[#0f1218]'
-  },
+{
+  icon: Heart,
+  title: 'For Fans',
+  features: [
+    'Earn tokens by supporting creators',
+    'Unlock perks, access, and early content',
+    'Participate without wallets or crypto'
+  ],
+  ctaText: 'Join Community',
+  ctaColor: 'from-[#0E3E45] to-[#13565F]',
+  bgColor: 'from-[#151922] to-[#0f1218]'
+},
   {
     icon: Briefcase,
     title: 'For Freelancers',
