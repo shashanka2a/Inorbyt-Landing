@@ -156,7 +156,7 @@ export function CreatorDashboard() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       <div className="w-full space-y-4 md:space-y-6">
         {/* Status Banner */}
         <div className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-lg p-4 flex items-center justify-between">
