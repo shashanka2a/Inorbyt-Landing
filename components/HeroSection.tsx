@@ -101,37 +101,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Reward your community.
-          </motion.span>
-          <br />
-          <motion.span
-            className="inline-block bg-gradient-to-r from-[#f9f4e1] via-orange-200 to-[#f9f4e1] bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            style={{
-              backgroundSize: '200% auto',
-            }}
-          >
-            <motion.span
-              animate={{
-                backgroundPosition: ['0% center', '200% center', '0% center'],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              style={{
-                backgroundImage: 'linear-gradient(90deg, #f9f4e1, #ffd7a8, #f9f4e1)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                backgroundSize: '200% auto',
-              }}
-            >
-              No crypto. No complexity. Just connection.
-            </motion.span>
+            Reward your community and grow together
           </motion.span>
         </motion.h1>
 
@@ -141,8 +111,7 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="font-dm-sans text-[#f9f4e1]/80 mb-8 sm:mb-12 max-w-3xl mx-auto text-base sm:text-lg md:text-xl lg:text-[22px] px-4 sm:px-0"
         >
-          InOrbyt turns your existing platforms (Patreon, Substack, YouTube, and Discord) into a connected reward ecosystem.
-          Reward loyalty, celebrate milestones, and give ownership back to your community.
+          InOrbyt connects your Patreon, Substack, YouTube and Discord in one reward system powered by blockchain. Celebrate your fans, mark milestones and build real connection with transparent rewards.
         </motion.p>
 
         <motion.div
