@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { 
   Users, 
   Gift, 
@@ -9,8 +10,6 @@ import {
   Copy,
   ExternalLink,
   CheckCircle,
-  Clock,
-  Settings,
   Award,
   MessageSquare,
   Link as LinkIcon,
@@ -44,8 +43,6 @@ export function CreatorDashboard() {
   const [joinLink] = useState('https://inorbyt.io/c/sarah-chen');
   const [joinLinkCopied, setJoinLinkCopied] = useState(false);
   const [discordConnected] = useState(true);
-  const [showRewardRules, setShowRewardRules] = useState(false);
-  const [showPerks, setShowPerks] = useState(false);
 
   const [stats] = useState<CreatorStats>({
     totalRewardsDistributed: 1247,
@@ -218,6 +215,7 @@ export function CreatorDashboard() {
         </div>
 
         {/* Stats Grid */}
+        <div className="border-t border-gray-800 mt-10 pt-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -283,7 +281,9 @@ export function CreatorDashboard() {
           <p className="text-[#f9f4e1]/70 text-xs md:text-sm">This Month</p>
         </motion.div>
         </div>
+        </div>
 
+        <div className="border-t border-gray-800 mt-10 pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 w-full">
         {/* Reward Rules */}
         <motion.div
@@ -294,14 +294,12 @@ export function CreatorDashboard() {
         >
           <div className="flex items-center justify-between mb-4 md:mb-6">
             <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Reward Rules</h2>
-            <motion.button
-              onClick={() => setShowRewardRules(!showRewardRules)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-orange-500 hover:text-orange-400 text-xs md:text-sm font-medium transition-colors"
+            <Link 
+              href="/rewards/manage"
+              className="text-sm text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 cursor-pointer"
             >
-              {showRewardRules ? 'Hide' : 'Edit'}
-            </motion.button>
+              Edit
+            </Link>
           </div>
 
           <div className="space-y-3">
@@ -347,14 +345,12 @@ export function CreatorDashboard() {
         >
           <div className="flex items-center justify-between mb-4 md:mb-6">
             <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Active Perks</h2>
-            <motion.button
-              onClick={() => setShowPerks(!showPerks)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-orange-500 hover:text-orange-400 text-xs md:text-sm font-medium transition-colors"
+            <Link 
+              href="/rewards/manage"
+              className="text-sm text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 cursor-pointer"
             >
               Manage
-            </motion.button>
+            </Link>
           </div>
 
           <div className="space-y-3">
@@ -378,8 +374,10 @@ export function CreatorDashboard() {
             ))}
           </div>
         </motion.div>
-      </div>
+        </div>
+        </div>
 
+        <div className="border-t border-gray-800 mt-10 pt-6">
         {/* Recent Automatic Rewards */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -389,14 +387,13 @@ export function CreatorDashboard() {
         >
           <div className="flex items-center justify-between mb-4 md:mb-6">
             <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Recent Automatic Rewards</h2>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="text-orange-500 hover:text-orange-400 text-xs md:text-sm font-medium transition-colors"
-          >
-            View All
-          </motion.button>
-        </div>
+            <Link 
+              href="/rewards/history"
+              className="text-sm text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 cursor-pointer"
+            >
+              View All
+            </Link>
+          </div>
 
         <div className="space-y-3 md:space-y-4">
           {recentRewards.map((reward, index) => (
