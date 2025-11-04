@@ -14,8 +14,10 @@ export default function FanDashboardPage() {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
-        <FanDashboard />
+      <div className="min-h-screen bg-[#0a0e1a]">
+        <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
+          <FanDashboard />
+        </div>
       </div>
 
       {/* Join Success Modal */}

@@ -95,8 +95,9 @@ export default function ManagePerksPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
-      {/* Header */}
+    <div className="min-h-screen bg-[#0a0e1a]">
+      <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
+        {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link 
@@ -222,6 +223,7 @@ export default function ManagePerksPage() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
