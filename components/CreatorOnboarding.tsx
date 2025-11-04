@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowRight, 
@@ -30,6 +31,7 @@ interface CreatorOnboardingProps {
 }
 
 export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps) {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState<OnboardingStep[]>([
     {
@@ -82,7 +84,12 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
     if (currentStep < steps.length - 1) {
       setCurrentStep(prev => prev + 1);
     } else {
+      // Step 4/4 completed - redirect to creator dashboard
       onComplete();
+      // Use setTimeout to ensure state updates complete before navigation
+      setTimeout(() => {
+        router.push('/creator/dashboard');
+      }, 500);
     }
   };
 
@@ -497,7 +504,12 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
           {/* Navigation */}
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#f9f4e1]/10">
             <button
-              onClick={onSkip}
+              onClick={() => {
+                onSkip();
+                setTimeout(() => {
+                  router.push('/creator/dashboard');
+                }, 300);
+              }}
               className="text-[#f9f4e1]/60 hover:text-[#f9f4e1] transition-colors text-sm"
             >
               Skip for now
