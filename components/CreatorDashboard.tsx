@@ -156,8 +156,22 @@ export function CreatorDashboard() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-10">
+    <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
       <div className="w-full space-y-4 md:space-y-6">
+        {/* Status Banner */}
+        <div className="bg-gradient-to-r from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-lg p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <CheckCircle className="w-5 h-5 text-green-400" />
+            <div>
+              <p className="text-[#f9f4e1] font-medium text-sm">Connected to Base</p>
+              <p className="text-[#f9f4e1]/70 text-xs">{discordConnected ? 'Discord Connected' : 'Discord Not Connected'}</p>
+            </div>
+          </div>
+          {discordConnected && (
+            <CheckCircle className="w-5 h-5 text-green-400" />
+          )}
+        </div>
+
         {/* Header */}
         <div className="flex flex-col gap-4 w-full">
           <div className="text-center">
@@ -213,9 +227,10 @@ export function CreatorDashboard() {
           </div>
           </div>
         </div>
+      </div>
 
-        {/* Stats Grid */}
-        <div className="border-t border-gray-800 mt-10 pt-6">
+      {/* Stats Grid */}
+      <div className="border-t border-gray-800 mt-10 pt-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -281,9 +296,9 @@ export function CreatorDashboard() {
           <p className="text-[#f9f4e1]/70 text-xs md:text-sm">This Month</p>
         </motion.div>
         </div>
-        </div>
+      </div>
 
-        <div className="border-t border-gray-800 mt-10 pt-6">
+      <div className="border-t border-gray-800 mt-10 pt-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 w-full">
         {/* Reward Rules */}
         <motion.div
@@ -295,7 +310,7 @@ export function CreatorDashboard() {
           <div className="flex items-center justify-between mb-4 md:mb-6">
             <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Reward Rules</h2>
             <Link 
-              href="/rewards/manage"
+              href="/creator/perks/manage"
               className="text-sm text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 cursor-pointer"
             >
               Edit
@@ -346,7 +361,7 @@ export function CreatorDashboard() {
           <div className="flex items-center justify-between mb-4 md:mb-6">
             <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Active Perks</h2>
             <Link 
-              href="/rewards/manage"
+              href="/creator/perks/manage"
               className="text-sm text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 cursor-pointer"
             >
               Manage
@@ -375,9 +390,9 @@ export function CreatorDashboard() {
           </div>
         </motion.div>
         </div>
-        </div>
+      </div>
 
-        <div className="border-t border-gray-800 mt-10 pt-6">
+      <div className="border-t border-gray-800 mt-10 pt-6">
         {/* Recent Automatic Rewards */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -388,7 +403,7 @@ export function CreatorDashboard() {
           <div className="flex items-center justify-between mb-4 md:mb-6">
             <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Recent Automatic Rewards</h2>
             <Link 
-              href="/rewards/history"
+              href="/creator/rewards"
               className="text-sm text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 cursor-pointer"
             >
               View All

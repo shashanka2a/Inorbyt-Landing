@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { 
   Gift, 
   TrendingUp,
@@ -11,7 +12,9 @@ import {
   CheckCircle,
   Lock,
   MessageSquare,
-  Clock
+  Clock,
+  ExternalLink,
+  Copy
 } from 'lucide-react';
 
 interface CreatorBalance {
@@ -26,6 +29,8 @@ interface UnlockedPerk {
   description: string;
   unlockedAt: Date;
   deliveryType: 'discord_role' | 'link' | 'code';
+  payload?: string;
+  creatorName?: string;
 }
 
 interface PendingPerk {
@@ -45,6 +50,7 @@ interface RecentReward {
 }
 
 export function FanDashboard() {
+  const [discordConnected] = useState(false); // Simulate Discord connection status
   const [balances] = useState<CreatorBalance[]>([
     { creatorId: '1', creatorName: 'Sarah Chen', balance: 75 },
     { creatorId: '2', creatorName: 'Leo Visuals', balance: 45 },
@@ -57,14 +63,26 @@ export function FanDashboard() {
       perkName: 'Exclusive Role',
       description: 'Special Discord role',
       unlockedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-      deliveryType: 'discord_role'
+      deliveryType: 'discord_role',
+      creatorName: 'Sarah Chen'
     },
     {
       id: '2',
       perkName: 'VIP Channel Access',
       description: 'Early access to new content',
       unlockedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-      deliveryType: 'link'
+      deliveryType: 'link',
+      payload: 'https://example.com/vip-access',
+      creatorName: 'Leo Visuals'
+    },
+    {
+      id: '3',
+      perkName: 'Premium Discount Code',
+      description: '20% off premium subscription',
+      unlockedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+      deliveryType: 'code',
+      payload: 'PREMIUM20',
+      creatorName: 'Nova Writes'
     }
   ]);
 
@@ -147,6 +165,16 @@ export function FanDashboard() {
     }
   };
 
+  const handleClaimPerk = (perk: UnlockedPerk) => {
+    if (perk.deliveryType === 'link' && perk.payload) {
+      window.open(perk.payload, '_blank');
+    } else if (perk.deliveryType === 'code' && perk.payload) {
+      navigator.clipboard.writeText(perk.payload);
+      // Could show a toast notification here
+      alert(`Code "${perk.payload}" copied to clipboard!`);
+    }
+  };
+
   return (
     <div className="w-full space-y-4 md:space-y-6">
       {/* Header */}
@@ -154,6 +182,28 @@ export function FanDashboard() {
         <h1 className="font-lora text-[#f9f4e1] text-2xl md:text-3xl font-semibold">Fan Dashboard</h1>
         <p className="text-[#f9f4e1]/70 mt-1 text-sm md:text-base">Track your rewards and unlocked perks</p>
       </div>
+
+      {/* Connect Discord CTA */}
+      {!discordConnected && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-lg p-4 md:p-6"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-[#f9f4e1] font-semibold mb-1">Connect Discord to Earn Rewards</h3>
+              <p className="text-[#f9f4e1]/70 text-sm">Link your Discord account to start earning automatic rewards</p>
+            </div>
+            <Link
+              href="/connect/discord"
+              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 whitespace-nowrap"
+            >
+              Connect Discord
+            </Link>
+          </div>
+        </motion.div>
+      )}
 
       {/* Total Balance Card */}
       <motion.div
@@ -224,10 +274,33 @@ export function FanDashboard() {
                       <div className="flex items-center gap-2 mb-1">
                         <CheckCircle className="w-4 h-4 text-green-400" />
                         <p className="text-[#f9f4e1] font-medium text-sm">{perk.perkName}</p>
+                        {perk.creatorName && (
+                          <span className="text-[#f9f4e1]/40 text-xs">from {perk.creatorName}</span>
+                        )}
                       </div>
                       <p className="text-[#f9f4e1]/60 text-xs">{perk.description}</p>
                       <p className="text-[#f9f4e1]/40 text-xs mt-1">Unlocked {formatTimeAgo(perk.unlockedAt)}</p>
                     </div>
+                    {(perk.deliveryType === 'link' || perk.deliveryType === 'code') && (
+                      <motion.button
+                        onClick={() => handleClaimPerk(perk)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="ml-3 px-4 py-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg text-xs font-medium transition-all duration-200 whitespace-nowrap"
+                      >
+                        {perk.deliveryType === 'link' ? (
+                          <>
+                            <ExternalLink className="w-3 h-3 inline mr-1" />
+                            Claim
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="w-3 h-3 inline mr-1" />
+                            Copy Code
+                          </>
+                        )}
+                      </motion.button>
+                    )}
                   </div>
                 </div>
               ))}
@@ -282,15 +355,14 @@ export function FanDashboard() {
         transition={{ delay: 0.4 }}
         className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
       >
-        <div className="flex items-center justify-between mb-4 md:mb-6">
-          <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold">Recent Automatic Rewards</h2>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="text-orange-500 hover:text-orange-400 text-xs md:text-sm font-medium transition-colors"
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+          <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold">Your Rewards</h2>
+          <Link
+            href="/fan/activity"
+            className="text-sm text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200 cursor-pointer"
           >
             View All
-          </motion.button>
+          </Link>
         </div>
 
         <div className="space-y-3 md:space-y-4">
