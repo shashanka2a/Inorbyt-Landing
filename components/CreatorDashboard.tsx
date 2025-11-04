@@ -159,16 +159,17 @@ export function CreatorDashboard() {
   };
 
   return (
-    <div className="w-full space-y-4 md:space-y-6">
-      {/* Header */}
-      <div className="flex flex-col gap-4">
-        <div>
-          <h1 className="font-lora text-[#f9f4e1] text-2xl md:text-3xl font-semibold">Creator Dashboard</h1>
-          <p className="text-[#f9f4e1]/70 mt-1 text-sm md:text-base">Track your Discord community rewards and engagement</p>
-        </div>
+    <div className="max-w-7xl mx-auto px-6 py-10">
+      <div className="w-full space-y-4 md:space-y-6">
+        {/* Header */}
+        <div className="flex flex-col gap-4 w-full">
+          <div className="text-center">
+            <h1 className="font-lora text-[#f9f4e1] text-2xl md:text-3xl font-semibold">Creator Dashboard</h1>
+            <p className="text-[#f9f4e1]/70 mt-1 text-sm md:text-base">Track your Discord community rewards and engagement</p>
+          </div>
 
-        {/* Discord Status & Join Link */}
-        <div className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6">
+          {/* Discord Status & Join Link */}
+          <div className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6 w-full">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div className="flex items-center gap-3 flex-shrink-0">
               <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
@@ -213,11 +214,11 @@ export function CreatorDashboard() {
               </button>
             </div>
           </div>
+          </div>
         </div>
-      </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -281,9 +282,9 @@ export function CreatorDashboard() {
           <h3 className="text-[#f9f4e1] text-lg md:text-2xl font-semibold">{stats.monthlyRewards}</h3>
           <p className="text-[#f9f4e1]/70 text-xs md:text-sm">This Month</p>
         </motion.div>
-      </div>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 w-full">
         {/* Reward Rules */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -292,7 +293,7 @@ export function CreatorDashboard() {
           className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold">Reward Rules</h2>
+            <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Reward Rules</h2>
             <motion.button
               onClick={() => setShowRewardRules(!showRewardRules)}
               whileHover={{ scale: 1.05 }}
@@ -345,7 +346,7 @@ export function CreatorDashboard() {
           className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
         >
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold">Active Perks</h2>
+            <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Active Perks</h2>
             <motion.button
               onClick={() => setShowPerks(!showPerks)}
               whileHover={{ scale: 1.05 }}
@@ -379,15 +380,15 @@ export function CreatorDashboard() {
         </motion.div>
       </div>
 
-      {/* Recent Automatic Rewards */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-        className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6"
-      >
-        <div className="flex items-center justify-between mb-4 md:mb-6">
-          <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold">Recent Automatic Rewards</h2>
+        {/* Recent Automatic Rewards */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="bg-gradient-to-br from-[#151922] to-[#0f1218] rounded-lg md:rounded-xl border border-[#f9f4e1]/10 p-4 md:p-6 w-full"
+        >
+          <div className="flex items-center justify-between mb-4 md:mb-6">
+            <h2 className="font-lora text-[#f9f4e1] text-lg md:text-xl font-semibold text-center">Recent Automatic Rewards</h2>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -424,8 +425,9 @@ export function CreatorDashboard() {
               </div>
             </motion.div>
           ))}
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }
