@@ -75,6 +75,7 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
   });
   const [perksCreated, setPerksCreated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const handleStepComplete = (stepId: string) => {
     setSteps(prev => prev.map(step => 
@@ -84,12 +85,11 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
     if (currentStep < steps.length - 1) {
       setCurrentStep(prev => prev + 1);
     } else {
-      // Step 4/4 completed - redirect to creator dashboard
+      // Step 4/4 completed - redirect immediately to prevent flash
+      setIsRedirecting(true);
       onComplete();
-      // Use setTimeout to ensure state updates complete before navigation
-      setTimeout(() => {
-        router.push('/creator/dashboard');
-      }, 500);
+      // Redirect immediately without delay
+      router.push('/creator/dashboard');
     }
   };
 
@@ -139,6 +139,24 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
   const currentStepData = steps[currentStep];
   const Icon = currentStepData.icon;
   const progress = ((currentStep + 1) / steps.length) * 100;
+
+  // Show loading overlay during redirect
+  if (isRedirecting) {
+    return (
+      <div className="min-h-screen bg-[#0a0e1a] flex items-center justify-center p-6">
+        <div className="text-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4"
+          >
+            <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full" />
+          </motion.div>
+          <p className="text-[#f9f4e1]/70">Redirecting to dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0e1a] flex items-center justify-center p-6">
@@ -505,10 +523,9 @@ export function CreatorOnboarding({ onComplete, onSkip }: CreatorOnboardingProps
           <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#f9f4e1]/10">
             <button
               onClick={() => {
+                setIsRedirecting(true);
                 onSkip();
-                setTimeout(() => {
-                  router.push('/creator/dashboard');
-                }, 300);
+                router.push('/creator/dashboard');
               }}
               className="text-[#f9f4e1]/60 hover:text-[#f9f4e1] transition-colors text-sm"
             >
