@@ -120,7 +120,11 @@ export function HeroSection() {
           transition={{ duration: 0.8, delay: 0.9 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 sm:px-0"
         >
-          <Link href="/dashboard">
+          <a 
+            href="https://forms.inorbyt.io/hello"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <motion.button
               whileHover={{ 
                 scale: 1.05,
@@ -156,7 +160,7 @@ export function HeroSection() {
                 }}
               />
             </motion.button>
-          </Link>
+          </a>
 
           <Link href="/dashboard">
             <motion.button
