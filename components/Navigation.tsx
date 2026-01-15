@@ -94,9 +94,9 @@ export function Navigation() {
               <Image 
                 src="/inorbyt.svg" 
                 alt="InOrbyt" 
-                width={120} 
-                height={40}
-                className="h-6 sm:h-8 w-auto"
+                width={180} 
+                height={60}
+                className="h-10 sm:h-12 w-auto"
               />
               <motion.div 
                 className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 origin-left"
